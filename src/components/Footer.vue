@@ -64,18 +64,19 @@
         <div class="friendLinkBox">
           <a
             href="https://v.yunaq.com/certificate?domain=www.mihoyo.com&from=label&code=90020"
-            class="friendLink"
+            class="friendLink a_1"
+            style=""
           ></a>
-          <a href="http://www.shjbzx.cn/" class="friendLink"></a>
-          <a href="https://www.12377.cn/" class="friendLink"></a>
+          <a href="http://www.shjbzx.cn/" class="friendLink a_2"></a>
+          <a href="https://www.12377.cn/" class="friendLink a_3"></a>
           <a
             href="http://sq.ccm.gov.cn:80/ccnt/sczr/service/business/emark/toDetail/8955A9DDE1FF8B6CE053010A14ACA87F"
-            class="friendLink"
+            class="friendLink a_4"
           ></a>
-          <a href="javascript:void(0)" class="friendLink"></a>
+          <a href="javascript:void(0)" class="friendLink a_5"></a>
           <a
             href="http://wap.scjgj.sh.gov.cn/businessCheck/verifKey.do?showType=extShow&serial=9031000020190314100540000004452331-SAIC_SHOW_310000-20200120150237277642&signData=MEYCIQCjn9IhIKfUHjPlx9W6xrYPZ4GA73Blopwp0iEzSX0OHQIhAOZm3tnlWLrgVXMtvgp5OibauIgiAa+2d+MQ7qzMIm6t"
-            class="friendLink"
+            class="friendLink a_6"
           ></a>
         </div>
       </div>
@@ -107,6 +108,7 @@ export default {
   margin: 0px auto;
   justify-content: center;
   list-style: none;
+    background-color: rgb(30, 30, 30);
 }
 .footerHeader li {
   width: 32px;
@@ -115,18 +117,17 @@ export default {
 }
 img {
   width: 32px;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 img:hover {
   opacity: 1;
 }
-.footer {
-  background-color: rgb(53, 53, 53);
-}
+
 .footerContent {
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(15, 15, 15);
   padding: 30px;
   display: flex;
+  justify-content: center;
 }
 .icon {
   display: flex;
@@ -182,5 +183,34 @@ img:hover {
 .lawText a:link,.lawText a:visited{
   color: #aaa;
 }
+.friendLinkBox{
+  display: flex;
+  margin: 10px 0px;
+}
+.friendLink {
+  display: block;
+  width: 120px;
+  height: 48px;
+  /* background-size: contain; */
+  /* float: left; */
+}
 
+.a_1{
+  background:url('../assets/认证图片/实名认证.png') no-repeat;
+}
+.a_2{
+  background:url('../assets/认证图片/检举中心.png') no-repeat;
+}
+.a_3{
+  background:url('../assets/认证图片/举报专区.png') no-repeat;
+}
+.a_4{
+  background:url('../assets/认证图片/互联网文化.png') no-repeat;
+}
+.a_5{
+  background:url('../assets/认证图片/962110.png') no-repeat;
+}
+.a_6{
+  background:url('../assets/认证图片/电子营业执照.png') no-repeat;
+}
 </style>

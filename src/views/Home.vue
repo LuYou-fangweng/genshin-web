@@ -1,17 +1,161 @@
 <template>
+  <!-- 首页 -->
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- 第一页 -->
+    <div class="world basicBox">
+      <!-- 背景 -->
+      <div class="backVideo">
+        <video class="video" ref="pvVideo" muted  loop="loop" autoplay="autoplay">
+          <source :src="pvSrc" type="video/mp4" />
+          您的浏览器不支持播放此视频.
+        </video>
+      </div>
+      <!-- 中部下载图示 -->
+      <div class="bottombar">
+        <!-- 播放按钮 -->
+        <div class="videoPlay">
+          <button class="playButton"><div class="buImg"></div></button>
+        </div>
+        <!-- 下载图标 -->
+        <div class="download">
+          <div class="wx">
+            <img src="../assets/首页/index.png" alt="微信二维码" class='wxCode'/>
+            <img src="../assets/首页/派蒙.jpg" alt="派蒙头像" class="pm"/>
+          </div>
+          <div class="left jx">
+            <a href="" class="ps4"><img src="../assets/首页/PS.png" alt=""></a>
+            <a href="" class="app"><img src="../assets/首页/苹果.png" alt=""></a>
+          </div>
+          <div class="rite jx">
+            <a href="" class="tap"><img src="../assets/首页/TAP.png" alt=""></a>
+            <a href="" class="android"><img src="../assets/首页/安卓.png" alt=""></a>
+          </div>
+          <a href="" class="pc"><img src="../assets/首页/PC.png" alt=""></a>
+        </div>
+        <div class="toBottom"></div>
+      </div>
+      <img src="../assets/首页/适龄提示.png" alt="适龄提示" class="slts" />
+    </div>
+    <div class="story"></div>
   </div>
 </template>
-<script>
+<script scoped>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
+  data() {
+    return {
+      pvSrc: "https://ys.mihoyo.com/main/_nuxt/videos/3e78e80.mp4",
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    // HelloWorld,
+  },
+  mounted: function () {
+  },
+};
 </script>
+<style>
+.video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+.world{
+  position: relative;
+}
+.backVideo{
+  position:absolute;
+  z-index: 0;
+}
+.basicBox{
+  width: 100vw;
+  height: 100vh;
+}
+.bottombar{
+  z-index: 1;
+  position:absolute;
+  left:50%;
+  transform: translate(-50%);
+  bottom: 70px;
+}
+.videoPlay{
+  margin: 0px auto;
+  width:356px;
+  height: 76px;
+  background: url('../assets/首页/播放边框.png') no-repeat;
+  background-size:cover ;
+  position: relative;
+  margin-bottom:20px ;
+}
+.playButton{
+  height: 48px;
+  width: 48px;
+  background: rgb(255, 255, 255);
+  border:0px;
+  border-radius: 50px;
+  outline: none;
+  position:absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition: all 0.2s;
+}
+.playButton:hover{
+ background: rgba(253, 245, 230, 0);
+}
+.buImg{
+  width: 28px;
+  height: 28px;
+  background: url("../assets/首页/播放按钮.png") no-repeat;
+  position:absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.playButton:hover .buImg{
+background: url("../assets/首页/播放按钮.png") no-repeat 0px -28px;
+}
+.wx{
+  position: relative;
+  width: 104px;
+  height: 104px;
+}
+.wxCode{
+  width: 104px;
+}
+.pm{
+  width: 30px;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.download{
+  padding: 10px;
+  display: flex;
+}
+.jx a{
+  display: block;
+  width: 160px;
+  height: 52px;
+}
+.download a img{
+  object-fit: cover;
+}
+.pc{
+  display: block;
+  width: 104px;
+  height: 104px;
+}
+.slts{
+  z-index:1;
+  position: absolute;
+  width: 100px;
+  bottom:60px;
+  left: 60px;
+}
+
+</style>

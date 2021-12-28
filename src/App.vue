@@ -38,14 +38,18 @@ export default{
 }
 #app{
   min-width:1300px;
+  position: relative;
 }
 .nav {
-  position: relative;
+  position:absolute;
   display:flex;
   height: 66px;
+  width:100vw;
+  min-width: 1300px;
   margin:0px auto;
   background-color: rgba(0, 0, 0, 0.65);
-  font:400 20px/66px "宋体"
+  font:400 20px/66px "宋体";
+  z-index:10;
 }
 .music{
   width: 34px;
