@@ -49,7 +49,7 @@ export default{
   margin:0px auto;
   background-color: rgba(0, 0, 0, 0.65);
   font:400 20px/66px "宋体";
-  z-index:10;
+  z-index:8;
 }
 .music{
   width: 34px;
