@@ -17,81 +17,96 @@
     <router-view />
     <!-- 页脚 -->
     <Footer></Footer>
-    
   </div>
 </template>
 <script>
-import Footer from './components/Footer.vue'
-export default{
-  name:"app",
-  components:{
-      Footer
-  }
-}
+import Footer from "./components/Footer.vue";
+export default {
+  name: "app",
+  components: {
+    Footer,
+  },
+  methods: {
+    //  网络请求函数，请求角色数据
+    roleData: function () {
+      let them = this;
+      this.$axios("http://127.0.0.1:3000/role")
+        .then(function (res) {
+          them.$store.commit("changeRoleList", res.data);
+          console.log(them.$store.state.roleList);
+        })
+        .catch(function (err) {
+          console.log("网络请求出错！，错误详情为：");
+          console.log(err);
+        });
+    },
+  },
+  created: function () {},
+  beforeMount: function () {
+    this.roleData();
+  },
+};
 </script>
 
-
 <style>
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
-#app{
-  min-width:1300px;
+#app {
+  min-width: 1300px;
   position: relative;
 }
 .nav {
-  position:absolute;
-  display:flex;
+  position: absolute;
+  display: flex;
   height: 66px;
-  width:100vw;
+  width: 100vw;
   min-width: 1300px;
-  margin:0px auto;
+  margin: 0px auto;
   background-color: rgba(0, 0, 0, 0.65);
-  font:400 20px/66px "宋体";
-  z-index:8;
+  font: 400 20px/66px "宋体";
+  z-index: 8;
 }
-.music{
+.music {
   width: 34px;
   height: 34px;
-  background:url('./assets/音乐.png') no-repeat;
+  background: url("./assets/音乐.png") no-repeat;
   border-radius: 50%;
   background-size: contain;
-  margin:auto 18px;
+  margin: auto 18px;
 }
-.logo{
+.logo {
   width: 240px;
   height: 60px;
-  background:url('./assets/logo.png') no-repeat  center center;
+  background: url("./assets/logo.png") no-repeat center center;
   background-size: cover;
 }
-.user{
+.user {
   position: absolute;
   right: 10px;
   height: 60px;
   display: flex;
   opacity: 0.7;
 }
-.user:hover{
+.user:hover {
   opacity: 1;
 }
-.user span{
-   color: #ffffff;
-   font-size: 20px;
+.user span {
+  color: #ffffff;
+  font-size: 20px;
 }
-.userImg{
+.userImg {
   width: 30px;
   height: 30px;
-  background:url('./assets/user.png') no-repeat;
+  background: url("./assets/user.png") no-repeat;
   border-radius: 50%;
   background-size: contain;
-  margin:auto 18px;
+  margin: auto 18px;
   color: #d4d4d4;
 }
 
-
 #nav a {
-
   color: #d4d4d4;
   text-decoration: none;
   margin: 0px 25px;
