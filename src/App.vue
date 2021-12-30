@@ -45,8 +45,8 @@ export default {
       let them = this;
       this.$axios("http://127.0.0.1:3000/city")
         .then(function (res) {
-          them.$store.commit("changeCitylisit", res.data);
-          console.log(them.$store.state.citylisit);
+          them.$store.commit("changeCityList", res.data);
+          console.log(them.$store.state.cityList);
         })
         .catch(function (err) {
           console.log("网络请求出错！，错误详情为：");
