@@ -40,10 +40,38 @@ export default {
           console.log(err);
         });
     },
+      //  网络请求函数，请求主城数据
+    cityData: function () {
+      let them = this;
+      this.$axios("http://127.0.0.1:3000/city")
+        .then(function (res) {
+          them.$store.commit("changeCitylisit", res.data);
+          console.log(them.$store.state.citylisit);
+        })
+        .catch(function (err) {
+          console.log("网络请求出错！，错误详情为：");
+          console.log(err);
+        });
+    },
+      //  网络请求函数，请求各国家风景/名胜数据
+    sceneryData: function () {
+      let them = this;
+      this.$axios("http://127.0.0.1:3000/scenery")
+        .then(function (res) {
+          them.$store.commit("chuangeScenery", res.data);
+          console.log(them.$store.state.sceneryList);
+        })
+        .catch(function (err) {
+          console.log("网络请求出错！，错误详情为：");
+          console.log(err);
+        });
+    },
   },
   created: function () {},
   beforeMount: function () {
     this.roleData();
+    this.cityData();
+    this.sceneryData();
   },
 };
 </script>

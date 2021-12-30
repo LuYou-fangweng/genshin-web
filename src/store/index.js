@@ -5,16 +5,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pvVideoShow:false,
-    roleList:[],
+    pvVideoShow: false,
+    roleList: [],
+    citylisit: [],
+    sceneryList: [],
+
   },
   mutations: {
-    changePvVideoShow:function(state){
-       state.pvVideoShow=!state.pvVideoShow;
+    changePvVideoShow: function (state) {
+      state.pvVideoShow = !state.pvVideoShow;
     },
-    changeRoleList:function(state,value){
-      state.roleList=value;
-   },
+    changeRoleList: function (state, value) {
+      state.roleList = value;
+    },
+    changeCitylisit: function (state, value) {
+      state.citylisit = value;
+    },
+    chuangeScenery(state, value) {
+      state.sceneryList = value;
+    },
   },
   actions: {
   },

@@ -71,6 +71,7 @@ export default {
 <style>
 .video {
   width: 100vw;
+  min-width: 1300px;
   height: 100vh;
   object-fit: cover;
 }
@@ -83,6 +84,7 @@ export default {
 }
 .basicBox{
   width: 100vw;
+  min-width: 1300px;
   height: 100vh;
 }
 .bottombar{
