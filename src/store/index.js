@@ -71,7 +71,7 @@ export default new Vuex.Store({
           imgSrc: ""   //图示
         },
        
-      ]
+      ]                              
     }
     ],
     

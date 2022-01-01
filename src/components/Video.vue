@@ -1,7 +1,7 @@
 <template>
   <div class="videoBox" v-show="this.$store.state.pvVideoShow">
     <div class="background" @click="$_changePvVideoShow"></div>
-    <video class="video" ref="pvVideo" controls="controls">
+    <video class="videoDom" ref="pvVideo" controls="controls">
       <source :src="videoSrc_" type="video/mp4" />
       您的浏览器不支持播放此视频.
     </video>
@@ -55,7 +55,7 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.video {
+.videoDom {
   width: 900px;
   height: 500px;
   position: fixed;
