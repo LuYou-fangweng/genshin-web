@@ -6,7 +6,10 @@
       <Background :imgList="this.$store.getters.nowCity.char"></Background>
     </div>
     <!-- 立绘  -->
-    <img :src="$store.getters.nowRole.cover1" alt="半身立绘" class="painting">
+    <transition name="painting">
+      <img :src="$store.getters.nowRole.cover1" alt="半身立绘" class="painting" v-if="imgIf">
+    </transition>
+    
     <!-- 内容 -->
     <div class="content">
         <RoleDataBox></RoleDataBox>
@@ -20,19 +23,27 @@
       <RoleListBox calss="roleListBox"></RoleListBox>
     </div>
     <!-- 侧边栏  -->
-
+    <div class="sidebar">
+      <CityList></CityList>
+    </div>
   </div>
 </template>
 <script>
 import Background from "../components/Background.vue"
 import RoleDataBox from "../components/roleDataBox.vue"
 import RoleListBox from "../components/RoleListBox.vue"
+import CityList from "../components/CityList.vue"
 export default {
   name: "Role",
   data: () => {
-    return {};
+    return {
+      imgIf:true,
+    };
   },
   methods: {
+    deleteImg:function(){
+      this.imgIf=!this.imgIf;
+    }
   },
   computed:{
   },
@@ -40,6 +51,7 @@ export default {
     Background,
     RoleDataBox,
     RoleListBox,
+    CityList,
   },
   created: function () {
     
@@ -48,6 +60,19 @@ export default {
 };
 </script>
 <style scoped>
+/* 立绘动画 */
+/* .painting-enter,
+.painting-leave-to {
+  opacity: 0;
+  transform: translateX(80px);
+  
+}
+
+.painting-enter-active,
+.painting-leave-active {
+  transition: all 0.8s;
+} */
+
 .role{
   position: relative;
   width: 100vw;
@@ -67,6 +92,7 @@ export default {
   top:0px;
   left:15%;
   height: 100%;
+  transition: all 0.5s ease;
 }
 .saying{
   position: relative;
@@ -82,5 +108,10 @@ export default {
 }
 .roleListBox{
   margin: 20px auto;
+}
+.sidebar{
+  position:absolute;
+  top:0;
+  left:0;
 }
 </style>
