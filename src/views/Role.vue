@@ -16,7 +16,9 @@
       </div>
     </div>
     <!-- 人物选择栏 -->
-    <div class="roleList"></div>
+    <div class="roleList">
+      <RoleListBox calss="roleListBox"></RoleListBox>
+    </div>
     <!-- 侧边栏  -->
 
   </div>
@@ -24,6 +26,7 @@
 <script>
 import Background from "../components/Background.vue"
 import RoleDataBox from "../components/roleDataBox.vue"
+import RoleListBox from "../components/RoleListBox.vue"
 export default {
   name: "Role",
   data: () => {
@@ -35,7 +38,8 @@ export default {
   },
   components:{
     Background,
-    RoleDataBox
+    RoleDataBox,
+    RoleListBox,
   },
   created: function () {
     
@@ -55,7 +59,7 @@ export default {
 }
 .content{
   position:absolute;
-  top:200px;
+  top:150px;
   left: 25%;
 }
 .painting{
@@ -75,5 +79,8 @@ export default {
   left: 0;
   bottom:0px;
   background-color: rgba(0, 0, 0, 0.3);
+}
+.roleListBox{
+  margin: 20px auto;
 }
 </style>

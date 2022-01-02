@@ -154,7 +154,7 @@ export default {
   border-radius: 18px;
   position: relative;
   margin: auto 30px;
-  background: #26343d73;
+  background: #26343d62;
 }
 
 .CV_Change span {
@@ -177,7 +177,7 @@ export default {
 }
 .textBox {
   display: flex;
-  margin-top: 30px;
+  margin-top: 15px;
   background-color: rgba(0, 0, 0, 0.384);
 }
 .textLeft {
