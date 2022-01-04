@@ -7,20 +7,26 @@
     </div>
     <!-- 立绘  -->
     <transition name="painting">
-      <img :src="$store.getters.nowRole.cover1" alt="半身立绘" class="painting" v-if="imgIf">
+      <img
+        :src="$store.getters.nowRole.cover1"
+        alt="半身立绘"
+        class="painting"
+        v-if="imgIf"
+        ref="paintingDom"
+      />
     </transition>
-    
+
     <!-- 内容 -->
     <div class="content">
-        <RoleDataBox></RoleDataBox>
-         <!-- 名言 -->
+      <RoleDataBox></RoleDataBox>
+      <!-- 名言 -->
       <div class="saying">
         <img :src="$store.getters.nowRole.sen" alt="" class="sayImg" />
       </div>
     </div>
     <!-- 人物选择栏 -->
     <div class="roleList">
-      <RoleListBox calss="roleListBox"></RoleListBox>
+      <RoleListBox calss="roleListBox" @changeImg="changeImg"></RoleListBox>
     </div>
     <!-- 侧边栏  -->
     <div class="sidebar">
@@ -29,89 +35,85 @@
   </div>
 </template>
 <script>
-import Background from "../components/Background.vue"
-import RoleDataBox from "../components/roleDataBox.vue"
-import RoleListBox from "../components/RoleListBox.vue"
-import CityList from "../components/CityList.vue"
+import Background from "../components/Background.vue";
+import RoleDataBox from "../components/roleDataBox.vue";
+import RoleListBox from "../components/RoleListBox.vue";
+import CityList from "../components/CityList.vue";
 export default {
   name: "Role",
   data: () => {
     return {
-      imgIf:true,
+      imgIf: true,
     };
   },
   methods: {
-    deleteImg:function(){
-      this.imgIf=!this.imgIf;
-    }
+    changeImg: function () {
+      this.imgIf = !this.imgIf;
+    },
   },
-  computed:{
-  },
-  components:{
+  computed: {},
+  components: {
     Background,
     RoleDataBox,
     RoleListBox,
     CityList,
   },
-  created: function () {
-    
-  },
-  
+  created: function () {},
 };
 </script>
 <style scoped>
 /* 立绘动画 */
-/* .painting-enter,
+.painting-enter,
 .painting-leave-to {
   opacity: 0;
-  transform: translateX(80px);
-  
+  transform: translateX(300px);
 }
 
 .painting-enter-active,
 .painting-leave-active {
-  transition: all 0.8s;
-} */
+  transition: all 0.2s ease;
+}
 
-.role{
+.role {
   position: relative;
   width: 100vw;
   height: 100vh;
   min-width: 1300px;
   min-height: 800px;
-  overflow:hidden;
-  
+  overflow: hidden;
 }
-.content{
-  position:absolute;
-  top:150px;
+.content {
+  position: absolute;
+  top: 150px;
   left: 25%;
 }
-.painting{
-  position:absolute;
-  top:0px;
-  left:15%;
+.painting {
+  position: absolute;
+  top: 0px;
+  left: 20%;
   height: 100%;
   transition: all 0.5s ease;
 }
-.saying{
+.saying {
   position: relative;
-  left:50%;
+  left: 50%;
 }
-.roleList{
+.roleList {
   width: 100%;
   height: 180px;
-  position:absolute;
+  position: absolute;
   left: 0;
-  bottom:0px;
+  bottom: 0px;
   background-color: rgba(0, 0, 0, 0.3);
+  z-index: 6;
 }
-.roleListBox{
+.roleListBox {
   margin: 20px auto;
 }
-.sidebar{
-  position:absolute;
-  top:0;
-  left:0;
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
 }
 </style>
