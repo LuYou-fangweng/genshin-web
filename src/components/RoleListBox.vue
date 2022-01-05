@@ -63,7 +63,6 @@ export default {
     },
     //人物序号自减
     redRoleIndex() {
-      console.log("进入自减函数");
       this.$emit("changeImg");
       setTimeout(() => {
         if (this.roleIndex > 0) {
