@@ -86,7 +86,7 @@ export default {
   position: relative;
 }
 .nav {
-  position: absolute;
+  position: fixed;
   display: flex;
   height: 66px;
   width: 100vw;
