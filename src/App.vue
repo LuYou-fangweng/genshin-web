@@ -4,10 +4,10 @@
     <div id="nav" class="nav">
       <div class="music"></div>
       <div class="logo"></div>
-      <router-link to="/">首页</router-link>
-      <router-link to="/Role">角色</router-link>
+      <router-link to="/" >首页</router-link>
+      <router-link to="/Role" >角色</router-link>
       <router-link to="/World">世界</router-link>
-      <router-link to="/Cartoon">漫画</router-link>
+      <router-link to="/Cartoon" >漫画</router-link>
       <div class="user">
         <span>登录</span>
         <div class="userImg"></div>
@@ -27,6 +27,12 @@ export default {
     Footer,
   },
   methods: {
+    //确定各路由是否激活自动调节窗口模式
+    // changeWindownAuto: function (value) {
+    //   console.log("进入设置窗口自动模式函数");
+    //   this.$store.commit("changeWindownAuto", value);
+    //   console.log("函数自动模式现在为"+this.store.state.windownAuto);
+    // },
     //  网络请求函数，请求角色数据
     roleData: function () {
       let them = this;
@@ -40,7 +46,7 @@ export default {
           console.log(err);
         });
     },
-      //  网络请求函数，请求主城数据
+    //  网络请求函数，请求主城数据
     cityData: function () {
       let them = this;
       this.$axios("http://127.0.0.1:3000/city")
@@ -53,7 +59,7 @@ export default {
           console.log(err);
         });
     },
-      //  网络请求函数，请求各国家风景/名胜数据
+    //  网络请求函数，请求各国家风景/名胜数据
     sceneryData: function () {
       let them = this;
       this.$axios("http://127.0.0.1:3000/scenery")
@@ -80,6 +86,10 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
+}
+html,
+body {
+  scroll-behavior: smooth;
 }
 #app {
   min-width: 1300px;

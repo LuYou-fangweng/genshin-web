@@ -1,67 +1,82 @@
 <template>
   <div class="world">
-    <!-- 世界界面的首页  -->
-    <div class="worldHome box">
-      <!-- 文本内容 -->
-      <div class="describe">
-        <img
-          src="../assets/世界/提瓦特大陆.png"
-          alt="提瓦特大陆"
-          class="homeTitle img"
-        />
-        <img
-          src="../assets/世界/文字下部装饰.png"
-          alt="标题页脚"
-          class="yj img"
-        />
-        <p>这里是七种元素交汇的幻想世界「提瓦特」。</p>
-        <p>
-          在遥远的过去，人们藉由对神灵的信仰，获赐了驱动元素的力量，得以在荒野中筑起家园。
-        </p>
-        <p>五百年前，古国的覆灭却使得天地变异…</p>
-        <p>如今，席卷大陆的灾难已经停息，和平却仍未如期光临。</p>
-      </div>
-      <!-- 动画按钮组件 -->
-      <div class="down">
-        <BottomDown></BottomDown>
-      </div>
-    </div>
-    <!-- 各国家介绍页  -->
-    <ul class="cityLst">
-      <li
-        class="cityBox box"
-        v-for="(item, index) of $store.state.sceneryList"
-        :key="item._id"
-      >
-        <!-- 城市背景大图 -->
-        <img :src="$store.state.sceneryList[index].bg" alt="" class="cityImg" />
-        <!-- 内容框 -->
-        <div class="main">
-          <!-- 阵营徽章 -->
+    <div class="centent" @wheel="ymAuto">
+      <!-- 世界界面的首页  -->
+      <div class="worldHome box">
+        <!-- 文本内容 -->
+        <div class="describe">
           <img
-            :src="$store.state.sceneryList[index].icon"
-            alt=""
-            class="icon"
+            src="../assets/世界/提瓦特大陆.png"
+            alt="提瓦特大陆"
+            class="homeTitle img"
           />
-          <!-- 阵营名称 -->
-          <div class="textBox">
-            <img src="../assets/世界/城市标题左装饰.png" alt="" class="left" />
-            <h1>{{ $store.state.sceneryList[index].title }}</h1>
-            <img src="../assets/世界/城市标题右装饰.png" alt="" class="right" />
-          </div>
-          <!-- 描述文本 -->
-          <div class="desc">
-            {{ $store.state.sceneryList[index].desc }}
-          </div>
-          <!-- 详情页按钮 -->
-          <div @click="showScenery(index)">
-            <BottomPage class="detailPage"></BottomPage>
-          </div>
-
-          <P>查看详情</P>
+          <img
+            src="../assets/世界/文字下部装饰.png"
+            alt="标题页脚"
+            class="yj img"
+          />
+          <p>这里是七种元素交汇的幻想世界「提瓦特」。</p>
+          <p>
+            在遥远的过去，人们藉由对神灵的信仰，获赐了驱动元素的力量，得以在荒野中筑起家园。
+          </p>
+          <p>五百年前，古国的覆灭却使得天地变异…</p>
+          <p>如今，席卷大陆的灾难已经停息，和平却仍未如期光临。</p>
         </div>
-      </li>
-    </ul>
+        <!-- 动画按钮组件 -->
+        <div class="down" @click="changeIndex(1)">
+          <BottomDown></BottomDown>
+        </div>
+      </div>
+      <!-- 各国家介绍页  -->
+      <ul class="cityLst">
+        <li
+          class="cityBox box"
+          v-for="(item, index) of $store.state.sceneryList"
+          :key="item._id"
+        >
+          <!-- 城市背景大图 -->
+          <img
+            :src="$store.state.sceneryList[index].bg"
+            alt=""
+            class="cityImg"
+          />
+          <!-- 内容框 -->
+          <div class="main">
+            <!-- 阵营徽章 -->
+            <img
+              :src="$store.state.sceneryList[index].icon"
+              alt=""
+              class="icon"
+            />
+            <!-- 阵营名称 -->
+            <div class="textBox">
+              <img
+                src="../assets/世界/城市标题左装饰.png"
+                alt=""
+                class="left"
+              />
+              <h1>{{ $store.state.sceneryList[index].title }}</h1>
+              <img
+                src="../assets/世界/城市标题右装饰.png"
+                alt=""
+                class="right"
+              />
+            </div>
+            <!-- 描述文本 -->
+            <div class="desc">
+              {{ $store.state.sceneryList[index].desc }}
+            </div>
+            <!-- 详情页按钮 -->
+            <div @click="showScenery(index)">
+              <BottomPage class="detailPage"></BottomPage>
+            </div>
+
+            <P>查看详情</P>
+          </div>
+        </li>
+      </ul>
+    </div>
+
     <!-- 城市资料遮罩层 -->
     <div class="cityScenery">
       <CityScenery></CityScenery>
@@ -75,19 +90,94 @@ import CityScenery from "../components/CityScenery.vue";
 export default {
   name: "World",
   data: () => {
-    return {};
+    return {
+      ymIndex: 0, //页面索引
+      maxYs: 4, //最大页数
+      time: 500, //页面跳转冷却时间
+      state: true, //是否可执行运动状态
+    };
   },
+  computed: {
+    windownAuto: function () {
+      return this.$store.state.windownAuto;
+    },
+  },
+  watch: {},
   methods: {
+    //显示风景详细
     showScenery: function (index) {
-      console.log("进入函数");
       this.$store.commit("chuangeSceneryIndex", index);
       this.$store.commit("changeSceneryShow");
+    },
+
+    //画面滚动执行
+    handleScroll: function () {
+      // console.log("坐标" + document.documentElement.scrollTop);
+      // console.log("高度" + window.innerHeight);
+      let value;
+      value = document.documentElement.scrollTop / window.innerHeight;
+      this.ymIndex = Math.ceil(value - 0.5);
+      // console.log(this.ymIndex);
+    },
+    //释放鼠标时改变高度
+    changeHeight: function () {
+      let height = this.ymIndex * window.innerHeight;
+      document.documentElement.scrollTop = height;
+      // console.log("坐标点"+height);
+    },
+    //改变到特定页面
+    changeIndex: function (index) {
+      let height = index * window.innerHeight;
+      document.documentElement.scrollTop = height;
+      // console.log("坐标点"+height);
+    },
+    //滚轮滑动时，触发页面自动跳转
+    ymAuto: function (e) {
+      if (this.state === false) {
+        return;
+      }
+      this.state = false;
+      let d;
+      if (e.wheelDelta > 0) {
+        // console.log("向上");
+        d = -1;
+      } else {
+        // console.log("向下");
+        d = 1;
+      }
+      let index = this.ymIndex + d;
+      if (index < 0) {
+        index = 0;
+      }
+      if (index > this.maxYs - 1) {
+        index = this.maxYs - 1;
+      }
+      this.changeIndex(index);
+      setTimeout(() => {
+        this.state = true;
+      }, this.time);
     },
   },
   components: {
     BottomDown,
     BottomPage,
     CityScenery,
+  },
+  mounted() {
+    // 禁用鼠标滚动页面
+    window.onmousewheel = function () {
+      // console.log("禁用鼠标滚轮");
+      return false;
+    };
+    //滚动事件监控
+    window.addEventListener("scroll", this.handleScroll, true);
+    //释放鼠标时自动调节按钮
+    window.addEventListener("mouseup", this.changeHeight, true);
+  },
+  beforeDestroy: function () {
+    // console.log("移除自动调节窗口");
+    window.removeEventListener("mouseup", this.changeHeight, true);
+    window.removeEventListener("scroll", this.handleScroll, true);
   },
 };
 </script>
