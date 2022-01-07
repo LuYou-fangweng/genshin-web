@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    sceneryShow:false,//城市资料遮罩层
     pvVideoShow: false,//PV遮罩层
     //人物列表
     roleList: [
@@ -77,7 +78,8 @@ export default new Vuex.Store({
     
 
     role_cityIndex: 0,//人物所属阵营序号
-    roleIndex: 0//人物序号
+    roleIndex: 0,//人物序号
+    sceneryIndex:0,//城市风景序号
 
   },
   getters: {
@@ -123,6 +125,14 @@ export default new Vuex.Store({
     // 人物序号自减
     redRoleIndex: function (state) {
       state.roleIndex--;
+    },
+    //改变城市风景序号
+    chuangeSceneryIndex:function(state, value) {
+      state.sceneryIndex = value;
+    },
+    //改变风景信息遮罩层
+    changeSceneryShow: function (state) {
+      state.sceneryShow = !state.sceneryShow;
     },
   },
 
