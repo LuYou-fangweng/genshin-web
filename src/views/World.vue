@@ -77,6 +77,56 @@
       </ul>
     </div>
 
+    <!-- 右侧侧边栏 -->
+    <div class="rightSidebar" :class="{rightSidebarActive:ymIndex==0}">
+      <!-- 侧边栏盒子 -->
+      <ul class="sidebarBox">
+        <!-- 首页 -->
+        <li class="citiList" @click="changeIndex(0)">
+          <div class="cityTxet" :class="{ cityTxetActive: ymIndex ==0 }">
+            首页
+          </div>
+          <div class="rightStyle">
+            <div class="maxBox" :class="{ maxBoxActive: ymIndex ==0 }"></div>
+            <div class="minBox" :class="{ minBoxActive: ymIndex ==0 }"></div>
+          </div>
+        </li>
+        <!-- 城市列表 -->
+        <li
+          class="citiList"
+          v-for="(item, index) of $store.state.sceneryList"
+          :key="item._id"
+          @click="changeIndex(index+1)"
+        >
+          <div
+            class="cityTxet"
+            :class="{ cityTxetActive: index + 1 == ymIndex }"
+          >
+            {{ item.title }}
+          </div>
+          <div class="rightStyle">
+            <div
+              class="maxBox"
+              :class="{ maxBoxActive: index + 1 == ymIndex }"
+            ></div>
+            <div
+              class="minBox"
+              :class="{ minBoxActive: index + 1 == ymIndex }"
+            ></div>
+          </div>
+        </li>
+        <!-- 敬请期待 -->
+        <li class="citiList">
+          <div class="cityTxet">敬请期待</div>
+          <div class="rightStyle">
+            <div class="maxBox"></div>
+            <div class="minBox"></div>
+          </div>
+        </li>
+        <div class="line"></div>
+      </ul>
+    </div>
+
     <!-- 城市资料遮罩层 -->
     <div class="cityScenery">
       <CityScenery></CityScenery>
@@ -97,11 +147,7 @@ export default {
       state: true, //是否可执行运动状态
     };
   },
-  computed: {
-    windownAuto: function () {
-      return this.$store.state.windownAuto;
-    },
-  },
+  computed: {},
   watch: {},
   methods: {
     //显示风景详细
@@ -282,5 +328,90 @@ p {
   margin: 0px auto;
   margin-top: 70px;
   margin-bottom: 20px;
+}
+.rightSidebar {
+  position: fixed;
+  top: 50%;
+  right: 36px;
+  transform: translate(0, -50%);
+  transition: all 0.6s ease-out;
+}
+.sidebarBox {
+  list-style: none;
+}
+.citiList {
+  height: 25px;
+  font: 400 14px/25px 微软雅黑;
+  margin: 12px 0px;
+  text-align: right;
+  color: #fff;
+  display: flex;
+  
+}
+.rightSidebar li:nth-child(5) {
+  color: rgba(255, 255, 255, 0.6);
+}
+.cityTxet {
+  height: 100%;
+  width: 100px;
+}
+.rightStyle {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  transform: rotate(45deg);
+}
+.maxBox {
+  width: 2px;
+  height: 2px;
+  border: 1px solid #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+.minBox {
+  width: 3px;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+.maxBoxActive {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.minBoxActive {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+}
+.line {
+  position: absolute;
+  height: 130%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  top: 50%;
+  right: 11px;
+  transform: translate(0px, -50%);
+}
+.cityTxet {
+  width: 80px;
+  padding-right: 20px;
+  height: 100%;
+}
+.cityTxetActive {
+  background: #fff;
+  color: black;
+}
+.rightSidebarActive{
+  right: -200px;
 }
 </style>
