@@ -27,12 +27,6 @@ export default {
     Footer,
   },
   methods: {
-    //确定各路由是否激活自动调节窗口模式
-    // changeWindownAuto: function (value) {
-    //   console.log("进入设置窗口自动模式函数");
-    //   this.$store.commit("changeWindownAuto", value);
-    //   console.log("函数自动模式现在为"+this.store.state.windownAuto);
-    // },
     //  网络请求函数，请求角色数据
     roleData: function () {
       let them = this;
@@ -72,12 +66,26 @@ export default {
           console.log(err);
         });
     },
+     //  网络请求函数，请求漫画数据
+    manhauData: function () {
+      let them = this;
+      this.$axios("http://127.0.0.1:3000/manhua")
+        .then(function (res) {
+          them.$store.commit("changeManhuaList", res.data);
+          console.log(them.$store.state.manhuaList);
+        })
+        .catch(function (err) {
+          console.log("网络请求出错！，错误详情为：");
+          console.log(err);
+        });
+    },
   },
   created: function () {},
   beforeMount: function () {
     this.roleData();
     this.cityData();
     this.sceneryData();
+    this.manhauData();
   },
 };
 </script>

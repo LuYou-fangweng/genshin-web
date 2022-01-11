@@ -75,11 +75,21 @@ export default new Vuex.Store({
       ]                              
     }
     ],
-    
+     //漫画列表
+     manhuaList:[{
+       _id:'',//id
+      title:"",//标题
+      src:"",//封面地址
+      manhuaImg:[],//漫画各页地址函数
+     }],
 
     role_cityIndex: 0,//人物所属阵营序号
     roleIndex: 0,//人物序号
     sceneryIndex:0,//城市风景序号
+
+    manhuaIndex:0,//漫画集数
+    manhuaPage:0,//漫画页数
+    manhuaShow:true,
 
   },
   getters: {
@@ -94,6 +104,27 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    // 确定漫画阅读器是否显示
+    changeManhuaShow(state,index){
+      state.manhuaShow=index;
+    },
+    // 选择特定漫画集数
+    changeManhuaIndex(state,index){
+      state.manhuaIndex=index;
+    },
+    //选择特定漫画页数
+    changeManhuaPage(state,index){
+      state.manhuaPage=index;
+    },
+    //页数自增或自减特定数
+    alterManhuaPage(state,index){
+      state.manhuaPage=state.manhuaPage+index;
+    } ,
+    //写入漫画信息
+    changeManhuaList:function(state, value) {
+      state.manhuaList = value;
+    },
+
     //载入PV信息
     changePvVideoShow: function (state) {
       state.pvVideoShow = !state.pvVideoShow;
