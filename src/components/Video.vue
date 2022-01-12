@@ -14,19 +14,23 @@ export default {
     videoSrc: String,
   },
   data() {
-    return {};
+    return {
+      musicPlay: "",
+    };
   },
   methods: {
     $_changePvVideoShow: function () {
       this.$store.commit("changePvVideoShow");
-      const pvVideo=this.$refs.pvVideo;
-      pvVideo.pause()
+      const pvVideo = this.$refs.pvVideo;
+      pvVideo.pause();
+      //回复背景音乐
+      this.$store.commit("changeMusicPlay", this.$store.state.musicLow);
     },
-    play:function(){
-      const pvVideo=this.$refs.pvVideo;
+    play: function () {
+      const pvVideo = this.$refs.pvVideo;
       pvVideo.load();
       pvVideo.play();
-    }
+    },
   },
   computed: {
     videoSrc_: function () {
@@ -38,6 +42,10 @@ export default {
       }
       return value;
     },
+  },
+  mounted: function () {},
+  beforeDestroy: function () {
+
   },
 };
 </script>

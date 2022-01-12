@@ -92,6 +92,8 @@ export default new Vuex.Store({
     manhuaShow:false,//漫画阅读器显示状态
     index_page:[0,0],//上次浏览集数与页数
 
+    musicPlay:false,//背景音乐播放状态
+    musicLow:"",
   },
   getters: {
     //当前人物所属城市信息
@@ -105,6 +107,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    //改变背景音乐状态
+    changeMusicPlay(state,index){
+      state.musicPlay=index;
+    },
     //写入浏览记录
     changeIndex_page(state,index){
       state.index_page=index;

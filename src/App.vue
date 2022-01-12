@@ -2,12 +2,26 @@
   <div id="app">
     <!-- 导航栏 -->
     <div id="nav" class="nav">
-      <div class="music"></div>
+      <div class="music" :class="{ musicNot: musicPlay === false }" @click=" changeMusicPlay">
+        <!-- 背景音乐 -->
+        <audio
+          class="backAudio"
+          ref="backAudio"
+          autoplay="autoplay"
+          loop="loop"
+        >
+          <source
+            src="https://ys.mihoyo.com/main/_nuxt/medias/video-bgm.d8637316.mp3"
+            type="audio/mp3"
+          />
+          您的浏览器不支持播放此音频.
+        </audio>
+      </div>
       <div class="logo"></div>
-      <router-link to="/" >首页</router-link>
-      <router-link to="/Role" >角色</router-link>
+      <router-link to="/">首页</router-link>
+      <router-link to="/Role">角色</router-link>
       <router-link to="/World">世界</router-link>
-      <router-link to="/Cartoon" >漫画</router-link>
+      <router-link to="/Cartoon">漫画</router-link>
       <div class="user">
         <span>登录</span>
         <div class="userImg"></div>
@@ -26,7 +40,37 @@ export default {
   components: {
     Footer,
   },
+  computed: {
+    musicPlay: function () {
+      return this.$store.state.musicPlay;
+    },
+  },
+  watch: {
+    musicPlay: function (value) {
+      if (value) {
+        this.music(1);
+      } else {
+        this.music(0);
+      }
+    },
+  },
   methods: {
+    //暂停或开始背景音乐播放
+    music: function (value) {
+      const backAudio = this.$refs.backAudio;
+      if (value === 0) {
+        console.log("暂停播放音乐");
+        backAudio.pause();
+      } else if (value === 1) {
+        console.log("执行自动播放音乐");
+        backAudio.play();
+      }
+    },
+    changeMusicPlay:function( ){
+       this.$store.commit("changeMusicPlay",!(this.$store.state.musicPlay))
+       console.log("改变音乐状态");
+    },
+
     //  网络请求函数，请求角色数据
     roleData: function () {
       let them = this;
@@ -66,7 +110,7 @@ export default {
           console.log(err);
         });
     },
-     //  网络请求函数，请求漫画数据
+    //  网络请求函数，请求漫画数据
     manhauData: function () {
       let them = this;
       this.$axios("http://127.0.0.1:3000/manhua")
@@ -86,6 +130,11 @@ export default {
     this.cityData();
     this.sceneryData();
     this.manhauData();
+  },
+  mounted: function () {
+    const backAudio = this.$refs.backAudio;
+    backAudio.load();
+    // backAudio.play();
   },
 };
 </script>
@@ -121,6 +170,10 @@ body {
   border-radius: 50%;
   background-size: contain;
   margin: auto 18px;
+}
+.musicNot {
+  background: url("./assets/音乐关闭.png") no-repeat;
+  background-size: contain;
 }
 .logo {
   width: 240px;
