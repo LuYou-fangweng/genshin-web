@@ -62,13 +62,13 @@ export default {
         console.log("暂停播放音乐");
         backAudio.pause();
       } else if (value === 1) {
-        console.log("执行自动播放音乐");
+        // console.log("执行自动播放音乐");
         backAudio.play();
       }
     },
     changeMusicPlay:function( ){
        this.$store.commit("changeMusicPlay",!(this.$store.state.musicPlay))
-       console.log("改变音乐状态");
+      //  console.log("改变音乐状态");
     },
 
     //  网络请求函数，请求角色数据
