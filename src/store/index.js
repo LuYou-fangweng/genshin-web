@@ -89,7 +89,8 @@ export default new Vuex.Store({
 
     manhuaIndex:0,//漫画集数
     manhuaPage:0,//漫画页数
-    manhuaShow:true,
+    manhuaShow:false,//漫画阅读器显示状态
+    index_page:[0,0],//上次浏览集数与页数
 
   },
   getters: {
@@ -104,6 +105,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    //写入浏览记录
+    changeIndex_page(state,index){
+      state.index_page=index;
+    },
     // 确定漫画阅读器是否显示
     changeManhuaShow(state,index){
       state.manhuaShow=index;
