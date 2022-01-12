@@ -59,7 +59,7 @@ export default {
     music: function (value) {
       const backAudio = this.$refs.backAudio;
       if (value === 0) {
-        console.log("暂停播放音乐");
+        // console.log("暂停播放音乐");
         backAudio.pause();
       } else if (value === 1) {
         // console.log("执行自动播放音乐");
