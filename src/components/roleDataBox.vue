@@ -132,7 +132,7 @@ export default {
 }
 .CV_Name {
   width: 180px;
-  font: 400 24px/54px 微软雅黑;
+  font: 400 20px/54px 微软雅黑;
 }
 .left {
   height: 54px;
