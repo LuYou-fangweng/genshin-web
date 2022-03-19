@@ -40,12 +40,12 @@ export default new Vuex.Store({
       home: {
         banner1: "",  //主城狭长图
         char: "",    // 代表人物剪影
-        banner2: ""   //主城中长图
+        banner2: ""   //主城中长图,移动端
       },
       char: {
         bg: "",     //主城背景早晨
         bg2: "",    // 主城背景下午
-        bg3: ""      //背景，竖直矩形带遮罩
+        bg3: ""      //背景，竖直矩形带遮罩，移动端
       },
       _id: "",
       contentId: "",    //序号

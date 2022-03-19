@@ -99,7 +99,6 @@ export default {
     },
   },
   components: {
-    // HelloWorld,
     Video,
   },
   mounted: function () {},

@@ -33,4 +33,12 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    window.location.href = '/move.html/'
+    return
+  }
+  next()
+})
+
 export default router
