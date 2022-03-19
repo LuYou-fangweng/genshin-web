@@ -73,4 +73,16 @@ export default {
   transform: translate(-50%, -50%);
   border: 0px;
 }
+@media only screen and (max-width: 500px){
+  .videoDom {
+  width:100vw;
+  height: 55vw;
+  /* position: fixed;
+  object-fit: cover;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px; */
+}
+}
 </style>
