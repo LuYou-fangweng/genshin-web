@@ -50,11 +50,12 @@
     <!-- 视图级组件 -->
     <router-view />
     <!-- 页脚 -->
-    <!-- <Footer></Footer> -->
+    <MoveFooter></MoveFooter>
   </div>
 </template>
 <script>
 // import Footer from "../../omponents/Footer.vue";
+import MoveFooter from "./move_components/MoveFooter.vue"
 export default {
   name: "move",
   data() {
@@ -63,7 +64,7 @@ export default {
     };
   },
   components: {
-    // Footer,
+    MoveFooter
   },
   computed: {
     musicPlay: function () {
