@@ -87,6 +87,7 @@
 <script>
 export default {
   name: "Footer",
+
   data: () => {
     return {
       imgSrc: [
@@ -97,12 +98,13 @@ export default {
       ],
     };
   },
+  methods: {},
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.footer{
+.footer {
   width: 100vw;
 }
 .footerHeader {
@@ -111,7 +113,7 @@ export default {
   margin: 0px auto;
   justify-content: center;
   list-style: none;
-    background-color: rgb(30, 30, 30);
+  background-color: rgb(30, 30, 30);
 }
 .footerHeader li {
   width: 32px;
@@ -158,35 +160,36 @@ img:hover {
 }
 .siteinfoLegar {
   color: #aaa;
-  font:400 14px/24px "微软雅黑";
-  margin-left:40px ;
+  font: 400 14px/24px "微软雅黑";
+  margin-left: 40px;
 }
-.siteinfoLegar a{
+.siteinfoLegar a {
   text-decoration: none;
 }
-.siteinfoLegar span{
+.siteinfoLegar span {
   margin: 0px 10px;
 }
-.lawNav{
-  margin-bottom:20px ;
+.lawNav {
+  margin-bottom: 20px;
 }
-.lawNav a{
+.lawNav a {
   margin: 0px 10px;
 }
-.lawNav a:nth-child(1){
-  margin-left:0px;
+.lawNav a:nth-child(1) {
+  margin-left: 0px;
 }
 
-.lawNav a:link{
+.lawNav a:link {
   color: #fff;
 }
-.lawNav a:visited{
-   color: #fff;
+.lawNav a:visited {
+  color: #fff;
 }
-.lawText a:link,.lawText a:visited{
+.lawText a:link,
+.lawText a:visited {
   color: #aaa;
 }
-.friendLinkBox{
+.friendLinkBox {
   display: flex;
   margin: 10px 0px;
 }
@@ -198,22 +201,22 @@ img:hover {
   /* float: left; */
 }
 
-.a_1{
-  background:url('../assets/认证图片/实名认证.png') no-repeat;
+.a_1 {
+  background: url("../assets/认证图片/实名认证.png") no-repeat;
 }
-.a_2{
-  background:url('../assets/认证图片/检举中心.png') no-repeat;
+.a_2 {
+  background: url("../assets/认证图片/检举中心.png") no-repeat;
 }
-.a_3{
-  background:url('../assets/认证图片/举报专区.png') no-repeat;
+.a_3 {
+  background: url("../assets/认证图片/举报专区.png") no-repeat;
 }
-.a_4{
-  background:url('../assets/认证图片/互联网文化.png') no-repeat;
+.a_4 {
+  background: url("../assets/认证图片/互联网文化.png") no-repeat;
 }
-.a_5{
-  background:url('../assets/认证图片/962110.png') no-repeat;
+.a_5 {
+  background: url("../assets/认证图片/962110.png") no-repeat;
 }
-.a_6{
-  background:url('../assets/认证图片/电子营业执照.png') no-repeat;
+.a_6 {
+  background: url("../assets/认证图片/电子营业执照.png") no-repeat;
 }
 </style>

@@ -8,7 +8,11 @@
       <!-- 关闭按钮 -->
       <div class="clear" @click="changeManhuaShow"></div>
       <!-- 后退 -->
-      <div class="button left" @click="reducePage" :class="{buttonNo:manhuaPage<=0}"></div>
+      <div
+        class="button left"
+        @click="reducePage"
+        :class="{ buttonNo: manhuaPage <= 0 }"
+      ></div>
       <!-- 漫画窗口 -->
       <div class="manhuaWindow">
         <!-- 填充内容，用于确定正确宽高比 -->
@@ -27,11 +31,19 @@
         </ul>
       </div>
       <!-- 前进 -->
-      <div class="button right" @click="addPage" :class="{buttonNo:manhuaPage>=nowManhua.length}"></div>
+      <div
+        class="button right"
+        @click="addPage"
+        :class="{ buttonNo: manhuaPage >= nowManhua.length }"
+      ></div>
       <!-- 导航栏 -->
       <div class="navBox">
         <!-- 集数选择栏 -->
-        <select class="indexList"  @change="changeManhuaIndex($event)" :value="this.manhuaIndex">
+        <select
+          class="indexList"
+          @change="changeManhuaIndex($event)"
+          :value="this.manhuaIndex"
+        >
           <option
             :value="index_index"
             class="index"
@@ -42,7 +54,11 @@
           </option>
         </select>
         <!-- 页数选择栏 -->
-        <select class="pageList" :value="this.manhuaPage" @change="changeManhuaPage($event)">
+        <select
+          class="pageList"
+          :value="this.manhuaPage"
+          @change="changeManhuaPage($event)"
+        >
           <option
             :value="index_page"
             class="page"
@@ -64,53 +80,6 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    //页数增加1
-    addPage: function () {
-      if (this.manhuaPage >= this.nowManhua.length - 1) {
-        return;
-      }
-      this.$store.commit("alterManhuaPage", 1);
-    },
-    //页数减1
-    reducePage: function () {
-      if (this.manhuaPage <= 0) {
-        return;
-      }
-      this.$store.commit("alterManhuaPage", -1);
-    },
-    //更换集数
-    changeManhuaIndex: function (event) {
-      let index=Number(event.target.value);
-      this.$store.commit("changeManhuaIndex", index);
-      this.$store.commit("changeManhuaPage", 0);
-    },
-    //更换页数
-    changeManhuaPage: function (event) {
-      let index=Number(event.target.value);
-      this.$store.commit("changeManhuaPage",index);
-      // console.log("执行页数更改函数,当前页数"+this.manhuaPage);
-    },
-    //关闭遮罩层
-    changeManhuaShow:function(){
-      this.$store.commit("changeManhuaShow",false)
-    },
-    //漫画阅读记录函数
-    record:function(){
-    let a=[];
-    a[0]=this.manhuaIndex;
-    a[1]=this.manhuaPage;
-    this.$store.commit("changeIndex_page",a);
-    window.localStorage.setItem('index_page', JSON.stringify(this.$store.state.index_page))
-    },
-    //位移函数
-    move:function(){
-     const manhauDom = this.$refs.manhauDom;
-      let d = -this.$store.state.manhuaPage * 100;
-      // console.log("调用视图跟随数据更新" + d);
-      manhauDom.style = "left:" + d + "%";
-    }
-  },
   computed: {
     manhuaIndex: function () {
       return this.$store.state.manhuaIndex;
@@ -131,16 +100,66 @@ export default {
       this.move();
       this.record();
     },
-     // 监听集数变化，并记录
-     manhuaIndex:function(){
-       this.record();
-     }
+    // 监听集数变化，并记录
+    manhuaIndex: function () {
+      this.record();
+    },
   },
   mounted: function () {
     // 记录集数页数
-     this.record();
+    this.record();
     //  移动至特定页数
-     this.move();
+    this.move();
+  },
+  methods: {
+    //页数增加1
+    addPage: function () {
+      if (this.manhuaPage >= this.nowManhua.length - 1) {
+        return;
+      }
+      this.$store.commit("alterManhuaPage", 1);
+    },
+    //页数减1
+    reducePage: function () {
+      if (this.manhuaPage <= 0) {
+        return;
+      }
+      this.$store.commit("alterManhuaPage", -1);
+    },
+    //更换集数
+    changeManhuaIndex: function (event) {
+      let index = Number(event.target.value);
+      this.$store.commit("changeManhuaIndex", index);
+      this.$store.commit("changeManhuaPage", 0);
+    },
+    //更换页数
+    changeManhuaPage: function (event) {
+      let index = Number(event.target.value);
+      this.$store.commit("changeManhuaPage", index);
+      // console.log("执行页数更改函数,当前页数"+this.manhuaPage);
+    },
+    //关闭遮罩层
+    changeManhuaShow: function () {
+      this.$store.commit("changeManhuaShow", false);
+    },
+    //漫画阅读记录函数
+    record: function () {
+      let a = [];
+      a[0] = this.manhuaIndex;
+      a[1] = this.manhuaPage;
+      this.$store.commit("changeIndex_page", a);
+      window.localStorage.setItem(
+        "index_page",
+        JSON.stringify(this.$store.state.index_page)
+      );
+    },
+    //位移函数
+    move: function () {
+      const manhauDom = this.$refs.manhauDom;
+      let d = -this.$store.state.manhuaPage * 100;
+      // console.log("调用视图跟随数据更新" + d);
+      manhauDom.style = "left:" + d + "%";
+    },
   },
 };
 </script>
@@ -155,7 +174,7 @@ export default {
   background: rgba(255, 255, 255, 0.15) url("../assets/世界/关闭.png") no-repeat
     center;
 }
-.clear:hover{
+.clear:hover {
   opacity: 1;
 }
 .backModel {
@@ -214,10 +233,10 @@ export default {
   transform: translate(0, -50%);
   opacity: 0.7;
 }
-.button:hover{
-opacity: 1;
+.button:hover {
+  opacity: 1;
 }
-.buttonNo{
+.buttonNo {
   opacity: 0.2 !important;
 }
 .left {

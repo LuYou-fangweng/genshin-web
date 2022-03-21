@@ -13,6 +13,7 @@ export default {
   props: {
     videoSrc: String,
   },
+  inject: ['root'],
   data() {
     return {
       musicPlay: "",
@@ -43,9 +44,10 @@ export default {
       return value;
     },
   },
-  mounted: function () {},
+  mounted: function () {
+    this.root = 1
+  },
   beforeDestroy: function () {
-
   },
 };
 </script>

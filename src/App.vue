@@ -35,10 +35,21 @@
 </template>
 <script>
 import Footer from "./components/Footer.vue";
+
+// import { } from './api';
 export default {
   name: "app",
   components: {
     Footer,
+  },
+  provide: {
+      root: 1,
+  },
+  data() {
+    return {
+      id: 0,
+      info: {}
+    }
   },
   computed: {
     musicPlay: function () {
@@ -53,6 +64,9 @@ export default {
         this.music(0);
       }
     },
+    id(id) {
+      console.log({id});
+    }
   },
   methods: {
     //暂停或开始背景音乐播放
@@ -124,7 +138,9 @@ export default {
         });
     },
   },
-  created: function () {},
+  created: function () {
+    window.vm = this;
+  },
   beforeMount: function () {
     this.roleData();
     this.cityData();

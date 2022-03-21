@@ -9,6 +9,11 @@ const routes = [
         name: 'moveHome',
         component: () => import('./page/MoveHome.vue')
     },
+    {
+        path: '/Role',
+        name: 'romeMove',
+        component: () => import('./page/RoleMove.vue')
+    },
 ]
 
 const router = new VueRouter({
