@@ -1,11 +1,13 @@
 <template>
   <div class="role">
     <!-- 背景 -->
-    <div class="background">
-      <!-- 呼吸、轮播图组件 -->
-      <!-- <Background :imgList="this.$store.getters.nowCity.char"></Background> -->
-      <img :src="this.$store.getters.nowCity.char.bg3" alt="背景图" />
-    </div>
+
+    <img
+      class="background"
+      :src="this.$store.getters.nowCity.char.bg3"
+      alt="背景图"
+    />
+
     <!-- 立绘  -->
     <transition name="painting">
       <img
@@ -26,9 +28,9 @@
       </div>
     </div>
     <!-- 人物选择栏 -->
-    <!-- <div class="roleList">
+    <div class="roleList">
       <RoleListBox calss="roleListBox" @changeImg="changeImg"></RoleListBox>
-    </div> -->
+    </div>
     <!-- 侧边栏  -->
     <!-- <div class="sidebar">
       <CityList></CityList>
@@ -38,7 +40,7 @@
 <script>
 // import Background from "../components/Background.vue";
 import RoleDataBox from "@/components/roleDataBox.vue";
-// import RoleListBox from "../components/RoleListBox.vue";
+import RoleListBox from "@/components/RoleListBox.vue";
 // import CityList from "../components/CityList.vue";
 export default {
   name: "RoleMove",
@@ -56,7 +58,7 @@ export default {
   components: {
     // Background,
     RoleDataBox,
-    // RoleListBox,
+    RoleListBox,
     // CityList,
   },
   created: function () {},
@@ -83,17 +85,12 @@ export default {
   .background {
     width: 100%;
     height: 100%;
-    img {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
+    object-fit: cover;
   }
   .painting {
     position: absolute;
     top: 0px;
-    left: 0;
+    right: 0;
     height: 100%;
     transition: all 0.5s ease;
   }
@@ -104,7 +101,7 @@ export default {
   left: rpx(60);
   .saying {
     position: relative;
-    top:rpx(200);
+    top: rpx(200);
     .sayImg {
       width: rpx(450);
     }
@@ -113,15 +110,13 @@ export default {
 
 .roleList {
   width: 100%;
-  height: 180px;
   position: absolute;
   left: 0;
-  bottom: 0px;
-  background-color: rgba(0, 0, 0, 0.3);
+  bottom:90px;
   z-index: 6;
 }
 .roleListBox {
-  margin: 20px auto;
+  margin: 0 auto;
 }
 .sidebar {
   position: absolute;

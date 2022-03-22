@@ -12,7 +12,7 @@
           v-for="(item, index) of role"
           :key="index"
           :class="{ headBoxActive: index === roleIndex }"
-          @click="chuangeRoleIndex(index)"
+          @mousedown="chuangeRoleIndex(index)"
         >
           <!-- 头像 -->
           <img
@@ -84,6 +84,25 @@ export default {
   },
   mounted: function () {},
   updated: function () {
+    // 判断是否位于移动端
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      console.log("执行移动端代码！");
+      // 移动端JS代码
+      let d = 0;
+      if (this.roleIndex > this.moveIndex - 1) {
+        d = ((this.roleIndex - (this.moveIndex - 1)) * 128) / 7.5;
+      }
+      if (this.roleIndex > this.role.length - 3) {
+        d = ((this.role.length - 5) * 128) / 7.5;
+      }
+      d = d + "vw";
+      // d = `rpx(-${d})`;
+      console.log("移动距离为：", d);
+      const ruleUlDom = this.$refs.ruleUlDom;
+      ruleUlDom.style = `transform: translateX(-${d})`;
+      return;
+    }
+    // 电脑端代码
     let d = 0;
     if (this.roleIndex > this.moveIndex - 1) {
       d = (this.roleIndex - (this.moveIndex - 1)) * 144;
@@ -97,88 +116,174 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .roleListBox {
   width: 1000px;
   display: flex;
-}
-.toLeft {
-  width: 45px;
-  height: 64px;
-  background: url("../assets/人物/左.png") no-repeat;
-  background-size: cover;
-  margin: auto 0px;
-}
-.toRight {
-  width: 45px;
-  height: 64px;
-  background: url("../assets/人物/右.png") no-repeat;
-  background-size: cover;
-  margin: auto 0px;
-}
-.headPortrait {
-  width: 830px;
-  overflow: hidden;
-  margin: 0px 40px;
-}
-.headPortrait ul {
-  display: flex;
-  list-style: none;
-}
-.headBox {
-  border: rgba(255, 255, 255, 0) solid 2px;
-  margin-right: 34px;
-  border-radius: 5px;
+  .toLeft {
+    width: 45px;
+    height: 64px;
+    background: url("../assets/人物/左.png") no-repeat;
+    background-size: cover;
+    margin: auto 0px;
+  }
+  .toRight {
+    width: 45px;
+    height: 64px;
+    background: url("../assets/人物/右.png") no-repeat;
+    background-size: cover;
+    margin: auto 0px;
+  }
+  .headPortrait {
+    width: 830px;
+    overflow: hidden;
+    margin: 0px 40px;
+    .roleUl {
+      display: flex;
+      list-style: none;
+
+      transform: translateX(0px);
+      transition: all 0.5s ease;
+
+      .headBox {
+        width: 110px;
+        background-color: rgba(255, 255, 255, 0);
+        margin-right: 34px;
+        border-radius: 5px;
+        .headImg {
+          margin: 2px 2px 0px 2px;
+          display: block;
+          width: 106px;
+          background-image: linear-gradient(
+            150deg,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(158, 158, 158, 1) 100%
+          );
+        }
+        .headImgActive {
+          background-image: linear-gradient(
+            150deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 60%,
+            rgba(158, 158, 158, 1) 100%
+          );
+        }
+        .roleNmae_ {
+          margin: 0 2px;
+          margin-bottom: 2px;
+          font: 400 18px/22px 微软雅黑;
+          text-align: center;
+          color: rgb(255, 255, 255);
+          background-color: rgba(0, 0, 0, 0.55);
+        }
+        .roleNmae_Activ {
+          color: rgb(0, 0, 0);
+          background-color: rgba(255, 255, 255, 1);
+        }
+      }
+      .headBox:hover {
+        background-color: rgba(255, 255, 255, 1);
+      }
+      .headBox:hover .headImg {
+        background-image: linear-gradient(
+          150deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 1) 60%,
+          rgba(158, 158, 158, 1) 100%
+        );
+      }
+      .headBox:hover .roleNmae_ {
+        color: rgb(0, 0, 0);
+        background-color: rgba(255, 255, 255, 1);
+      }
+      .headBoxActive {
+        background-color: rgba(255, 255, 255, 1);
+      }
+    }
+  }
 }
 
-.headImg {
-  display: block;
-  width: 106px;
-  background-image: linear-gradient(
-    150deg,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.4) 60%,
-    rgba(158, 158, 158, 1) 100%
-  );
-}
-.roleNmae_ {
-  font: 400 18px/22px 微软雅黑;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.55);
-}
-.headBox:hover {
-  border: rgba(255, 255, 255, 1) solid 2px;
-}
-.headBox:hover .headImg {
-  background-image: linear-gradient(
-    150deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 60%,
-    rgba(158, 158, 158, 1) 100%
-  );
-}
-.headBox:hover .roleNmae_ {
-  color: rgb(0, 0, 0);
-  background-color: rgba(255, 255, 255, 1);
-}
-.headBoxActive {
-  border: rgba(255, 255, 255, 1) solid 2px;
-}
-.headImgActive {
-  background-image: linear-gradient(
-    150deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 60%,
-    rgba(158, 158, 158, 1) 100%
-  );
-}
-.roleNmae_Activ {
-  color: rgb(0, 0, 0);
-  background-color: rgba(255, 255, 255, 1);
-}
-.roleUl {
-  transform: translateX(0px);
-  transition: all 0.5s ease;
+@media only screen and (max-width: 500px) {
+  .roleListBox {
+    width: rpx(640);
+    display: flex;
+    .toLeft {
+      display: none;
+    }
+    .toRight {
+      display: none;
+    }
+    .headPortrait {
+      width: rpx(640);
+      overflow: hidden;
+      margin: 0px;
+      overflow-x: scroll;
+      .roleUl {
+        display: flex;
+        list-style: none;
+
+        transform: translateX(0px);
+        transition: all 0.5s ease;
+
+        .headBox {
+          width: rpx(128);
+          // height: rpx(168);
+          border-radius: rpx(4);
+          perspective: 40px;
+          margin: 0;
+          transition: all 0.5s ease;
+          .headImg {
+            margin: 0 rpx(2);
+            margin-top: rpx(2);
+            transform: translateZ(-4px);
+            display: block;
+            width: rpx(124);
+            background-image: linear-gradient(
+              150deg,
+              rgba(0, 0, 0, 0.4) 0%,
+              rgba(0, 0, 0, 0.4) 60%,
+              rgba(158, 158, 158, 1) 100%
+            );
+            transition: all 0.5s ease;
+          }
+          .headImgActive {
+            background-image: linear-gradient(
+              150deg,
+              rgba(0, 0, 0, 1) 0%,
+              rgba(0, 0, 0, 1) 60%,
+              rgba(158, 158, 158, 1) 100%
+            );
+            transform: translateZ(0);
+            // transition: all 0.5s ease;
+          }
+          .roleNmae_ {
+            margin: rpx(2);
+            margin-top: 0;
+            transform: translateZ(-4px);
+            font: 400 rpx(30) / rpx(36) 微软雅黑;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            background-color: rgba(0, 0, 0, 0.55);
+            transition: all 0.5s ease;
+          }
+          .roleNmae_Activ {
+            color: rgb(0, 0, 0);
+            background-color: rgba(255, 255, 255, 1);
+            transform: translateZ(0);
+            // transition: all 0.5s ease;
+          }
+        }
+        .headBoxActive {
+          background-color: rgba(255, 255, 255, 1);
+          // transition: all 0.5s ease;
+        }
+      }
+    }
+
+    .headPortrait::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>

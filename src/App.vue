@@ -42,9 +42,6 @@ export default {
   components: {
     Footer,
   },
-  provide: {
-      root: 1,
-  },
   data() {
     return {
       id: 0,
