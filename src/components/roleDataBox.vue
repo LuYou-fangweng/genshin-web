@@ -139,6 +139,8 @@ export default {
         .CV_Name {
           width: 180px;
           font: 400 20px/54px 微软雅黑;
+           overflow: hidden;
+            height: 100%;
         }
         .audeoPlay {
           width: 54px;
@@ -240,6 +242,8 @@ export default {
             height: rpx(70);
           }
           .CV_Name {
+            overflow: hidden;
+            height: 100%;
             position: absolute;
             top: 0;
             left: rpx(20);

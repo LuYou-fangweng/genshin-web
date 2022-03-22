@@ -4,15 +4,16 @@
     <!-- 左按钮 -->
     <div class="toLeft" @click="redRoleIndex"></div>
     <!-- 任务头像列表框 -->
-    <div class="headPortrait">
+    <div class="headPortrait" ref="headBox">
       <ul ref="ruleUlDom" class="roleUl">
+        <!-- @mousedown="move" -->
         <!-- 头像框 -->
         <li
           class="headBox"
           v-for="(item, index) of role"
           :key="index"
           :class="{ headBoxActive: index === roleIndex }"
-          @mousedown="chuangeRoleIndex(index)"
+          @click="chuangeRoleIndex(index)"
         >
           <!-- 头像 -->
           <img
@@ -41,6 +42,26 @@ export default {
     };
   },
   methods: {
+    //拖拽头像框改变距离
+    // move() {
+    //   // let late = document.defaultView.getComputedStyle(
+    //   //   document.getElementsByClassName("roleUl")[0],
+    //   //   null
+    //   // ).transform;
+
+    //   // let lateData = late.replace(")", "").split(",");
+    //   // let lateX=lateData[lateData.length-2];
+    //   // console.log(lateX);
+    //   console.log("触发按下");
+    //   document.onmousemove = () => {
+    //    console.log("触发移动");
+    //     document.onmouseup = () => {
+    //       //鼠标按下并移动的事件
+    //       document.onmousemove = null;
+    //       document.onmouseup = null;
+    //     };
+    //   };
+    // },
     //改变当然人物序号特定值
     chuangeRoleIndex(value) {
       this.$emit("changeImg");
@@ -86,7 +107,7 @@ export default {
   updated: function () {
     // 判断是否位于移动端
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-      console.log("执行移动端代码！");
+      // console.log("执行移动端代码！");
       // 移动端JS代码
       let d = 0;
       if (this.roleIndex > this.moveIndex - 1) {
@@ -97,7 +118,7 @@ export default {
       }
       d = d + "vw";
       // d = `rpx(-${d})`;
-      console.log("移动距离为：", d);
+      // console.log("移动距离为：", d);
       const ruleUlDom = this.$refs.ruleUlDom;
       ruleUlDom.style = `transform: translateX(-${d})`;
       return;
@@ -206,19 +227,36 @@ export default {
 
 @media only screen and (max-width: 500px) {
   .roleListBox {
-    width: rpx(640);
     display: flex;
+     width: rpx(640);
+     position: relative;
     .toLeft {
-      display: none;
+      position: absolute;
+      bottom:80px;
+      left: rpx(-44);
+      width: rpx(90);
+
+      height: rpx(128);
+      background: url("../assets/人物/左.png") no-repeat;
+      background-size: 100% 100%;
+      margin: auto 0px;
+      z-index: 2;
     }
     .toRight {
-      display: none;
+      position: absolute;
+      bottom:80px;
+      right: rpx(-44);
+      width: rpx(90);
+
+      height: rpx(128);
+      background: url("../assets/人物/右.png") no-repeat;
+      background-size: 100% 100%;
+      margin: auto 0px;
     }
     .headPortrait {
       width: rpx(640);
       overflow: hidden;
       margin: 0px;
-      overflow-x: scroll;
       .roleUl {
         display: flex;
         list-style: none;
@@ -261,7 +299,7 @@ export default {
             margin: rpx(2);
             margin-top: 0;
             transform: translateZ(-4px);
-            font: 400 rpx(30) / rpx(36) 微软雅黑;
+            font: 400 rpx(24) / rpx(36) 微软雅黑;
             text-align: center;
             color: rgb(255, 255, 255);
             background-color: rgba(0, 0, 0, 0.55);
@@ -279,10 +317,6 @@ export default {
           // transition: all 0.5s ease;
         }
       }
-    }
-
-    .headPortrait::-webkit-scrollbar {
-      display: none;
     }
   }
 }

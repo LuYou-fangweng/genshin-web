@@ -31,17 +31,17 @@
     <div class="roleList">
       <RoleListBox calss="roleListBox" @changeImg="changeImg"></RoleListBox>
     </div>
-    <!-- 侧边栏  -->
-    <!-- <div class="sidebar">
-      <CityList></CityList>
-    </div> -->
+    <!-- 底部栏  -->
+    <div class="sidebar">
+     <CityListMove></CityListMove> 
+    </div>
   </div>
 </template>
 <script>
 // import Background from "../components/Background.vue";
 import RoleDataBox from "@/components/roleDataBox.vue";
 import RoleListBox from "@/components/RoleListBox.vue";
-// import CityList from "../components/CityList.vue";
+import CityListMove from "@/views/move/move_components/CityListMove.vue";
 export default {
   name: "RoleMove",
   data: () => {
@@ -59,7 +59,7 @@ export default {
     // Background,
     RoleDataBox,
     RoleListBox,
-    // CityList,
+    CityListMove
   },
   created: function () {},
 };
@@ -120,8 +120,9 @@ export default {
 }
 .sidebar {
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
+  bottom: 0;
+  left: 50%;
+  z-index: 7;
+  transform: translate(-50%,0);
 }
 </style>
