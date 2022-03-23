@@ -23,7 +23,7 @@ export default {
   name: "CityListMove",
   data: () => {
     return {
-      topBoxShow: true,
+      topBoxShow: false,
     };
   },
   methods: {

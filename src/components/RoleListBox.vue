@@ -231,27 +231,30 @@ export default {
      width: rpx(640);
      position: relative;
     .toLeft {
-      position: absolute;
-      bottom:80px;
-      left: rpx(-44);
-      width: rpx(90);
+      display: none;
+      // 移动端显示方案
+      // position: absolute;
+      // bottom:80px;
+      // left: rpx(-44);
+      // width: rpx(90);
 
-      height: rpx(128);
-      background: url("../assets/人物/左.png") no-repeat;
-      background-size: 100% 100%;
-      margin: auto 0px;
-      z-index: 2;
+      // height: rpx(128);
+      // background: url("../assets/人物/左.png") no-repeat;
+      // background-size: 100% 100%;
+      // margin: auto 0px;
+      // z-index: 2;
     }
     .toRight {
-      position: absolute;
-      bottom:80px;
-      right: rpx(-44);
-      width: rpx(90);
+      display: none;
+      // position: absolute;
+      // bottom:80px;
+      // right: rpx(-44);
+      // width: rpx(90);
 
-      height: rpx(128);
-      background: url("../assets/人物/右.png") no-repeat;
-      background-size: 100% 100%;
-      margin: auto 0px;
+      // height: rpx(128);
+      // background: url("../assets/人物/右.png") no-repeat;
+      // background-size: 100% 100%;
+      // margin: auto 0px;
     }
     .headPortrait {
       width: rpx(640);

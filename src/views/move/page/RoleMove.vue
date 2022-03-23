@@ -1,5 +1,5 @@
 <template>
-  <div class="role">
+  <div class="role" @touchstart="touchstart" @touchmove="touchmove">
     <!-- 背景 -->
 
     <img
@@ -12,7 +12,7 @@
     <transition name="painting">
       <img
         :src="$store.getters.nowRole.cover2"
-        alt="半身立绘"
+        alt="全身立绘"
         class="painting"
         v-if="imgIf"
         ref="paintingDom"
@@ -33,7 +33,7 @@
     </div>
     <!-- 底部栏  -->
     <div class="sidebar">
-     <CityListMove></CityListMove> 
+      <CityListMove></CityListMove>
     </div>
   </div>
 </template>
@@ -47,19 +47,61 @@ export default {
   data: () => {
     return {
       imgIf: true,
+      startX: 0,
+      startY: 0,
+      moveX: 0,
+      moveY: 0,
+      cooling: true,
+      coolingTime: 200,
     };
+  },
+  computed: {
+    nowRoleListLength() {
+      return this.$store.state.roleList[this.$store.state.role_cityIndex].role.length;
+    },
   },
   methods: {
     changeImg: function () {
       this.imgIf = !this.imgIf;
     },
+    chuangeIndex(index) {
+      if (index <= 0) {
+        this.$store.state.roleIndex >= 1
+          ? this.$store.commit("redRoleIndex")
+          : {};
+      }
+      if (index > 0) {
+        this.$store.state.roleIndex < this.nowRoleListLength - 1
+          ? this.$store.commit("addRoleIndex")
+          : {};
+      }
+    },
+    touchstart(e) {
+      // 如果你要阻止点击事件，请反注释下一行代码
+      // e.preventDefault()
+      this.startX = e.touches[0].clientX;
+      this.startY = e.touches[0].clientY;
+    },
+    touchmove(e) {
+      // e.preventDefault()
+      this.moveX = e.touches[0].clientX;
+      this.moveY = e.touches[0].clientY;
+      if (Math.abs(this.startX - this.moveX) >= 50 && this.cooling) {
+        this.cooling = false;
+        this.changeImg();
+        this.startX - this.moveX <= 0 ? this.chuangeIndex(0) : this.chuangeIndex(1);
+        setTimeout(() => {
+          this.changeImg();
+          this.cooling = true;
+        }, this.coolingTime);
+      }
+    },
   },
-  computed: {},
   components: {
     // Background,
     RoleDataBox,
     RoleListBox,
-    CityListMove
+    CityListMove,
   },
   created: function () {},
 };
@@ -112,7 +154,7 @@ export default {
   width: 100%;
   position: absolute;
   left: 0;
-  bottom:90px;
+  bottom: 90px;
   z-index: 6;
 }
 .roleListBox {
@@ -123,6 +165,6 @@ export default {
   bottom: 0;
   left: 50%;
   z-index: 7;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
 }
 </style>
