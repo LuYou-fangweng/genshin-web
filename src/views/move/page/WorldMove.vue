@@ -1,17 +1,17 @@
 <template>
   <div class="world">
-    <div class="centent" @wheel="ymAuto">
+    <div class="centent" ref="centent">
       <!-- 世界界面的首页  -->
       <div class="worldHome box">
         <!-- 文本内容 -->
         <div class="describe">
           <img
-            src="../assets/世界/提瓦特大陆.png"
+            src="@/assets/世界/提瓦特大陆.png"
             alt="提瓦特大陆"
             class="homeTitle img"
           />
           <img
-            src="../assets/世界/文字下部装饰.png"
+            src="@/assets/世界/文字下部装饰.png"
             alt="标题页脚"
             class="yj img"
           />
@@ -50,14 +50,10 @@
             />
             <!-- 阵营名称 -->
             <div class="textBox">
-              <img
-                src="../assets/世界/城市标题左装饰.png"
-                alt=""
-                class="left"
-              />
+              <img src="@/assets/世界/城市标题左装饰.png" alt="" class="left" />
               <h1>{{ $store.state.sceneryList[index].title }}</h1>
               <img
-                src="../assets/世界/城市标题右装饰.png"
+                src="@/assets/世界/城市标题右装饰.png"
                 alt=""
                 class="right"
               />
@@ -70,8 +66,7 @@
             <div @click="showScenery(index)">
               <BottomPage class="detailPage"></BottomPage>
             </div>
-
-            <P>查看详情</P>
+            <p>查看详情</p>
           </div>
         </li>
       </ul>
@@ -134,9 +129,9 @@
   </div>
 </template>
 <script>
-import BottomDown from "../components/BottomDown.vue";
-import BottomPage from "../components/BottomPage.vue";
-import CityScenery from "../components/CityScenery.vue";
+import BottomDown from "@/components/BottomDown.vue";
+import BottomPage from "@/components/BottomPage.vue";
+import CityScenery from "@/components/CityScenery.vue";
 export default {
   name: "World",
   data: () => {
@@ -156,6 +151,15 @@ export default {
       this.$store.commit("changeSceneryShow");
     },
 
+    //改变到特定页面
+    changeIndex: function (index) {
+      const centent = this.$refs.centent;
+      let height = index * 100;
+      centent.style.transform = `translate(0, -${height}vh)`;
+
+      // document.documentElement.scrollTop = height;
+      // console.log("坐标点"+height);
+    },
     //画面滚动执行
     handleScroll: function () {
       // console.log("坐标" + document.documentElement.scrollTop);
@@ -168,12 +172,6 @@ export default {
     //释放鼠标时改变高度
     changeHeight: function () {
       let height = this.ymIndex * window.innerHeight;
-      document.documentElement.scrollTop = height;
-      // console.log("坐标点"+height);
-    },
-    //改变到特定页面
-    changeIndex: function (index) {
-      let height = index * window.innerHeight;
       document.documentElement.scrollTop = height;
       // console.log("坐标点"+height);
     },
@@ -236,46 +234,55 @@ export default {
 }
 p {
   text-align: center;
-  font: 400 14px/30px 微软雅黑;
+  font: 400 rpx(26) / rpx(40) 微软雅黑;
   color: #fff;
 }
 .world {
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
   .centent {
+    transform: translate(0, 0);
+    transition: all 0.6s ease;
     .box {
       width: 100vw;
       height: 100vh;
-      min-width: 1300px;
     }
     .worldHome {
-      background: url("../assets/世界/5c125a1.png") no-repeat center;
+      background: url("https://ys.mihoyo.com/main/_nuxt/img/7589496.jpg")
+        no-repeat center;
       background-size: cover;
       position: relative;
       .describe {
-        width: 900px;
+        width: rpx(650);
         position: absolute;
-        top: 50%;
+        top: 38%;
         left: 50%;
         transform: translate(-50%, -50%);
         .img {
           display: block;
           margin: 0px auto;
-          margin-bottom: 18px;
+          margin-bottom: 12px;
         }
         .homeTitle {
-          height: 10vh;
+          width: rpx(500);
+        }
+        .yj {
+          width: 100%;
         }
         p {
           text-align: center;
           color: #fff;
-          font: 400 16px/30px 微软雅黑;
+          font: 400 rpx(26) / rpx(40) 微软雅黑;
           text-shadow: 0 0 12px rgba(110, 159, 193, 0.36);
         }
       }
       .down {
         position: absolute;
         left: 50%;
-        bottom: 60px;
+        bottom: 20%;
         transform: translate(-50%, 0);
       }
     }
@@ -288,23 +295,24 @@ p {
           object-fit: cover;
         }
         .main {
-          width: 700px;
+          width: rpx(500);
           position: absolute;
-          top: 18%;
+          top: 14%;
           left: 50%;
           transform: translate(-50%);
           .icon {
             display: block;
-            height: 12vh;
+            height: 15vh;
             margin: 10px auto;
           }
           .textBox {
+            width: 100%;
             display: flex;
             margin: 0px auto;
             justify-content: center;
             .left,
             .right {
-              height: 12px;
+              width: rpx(300);
               margin: auto 0px;
             }
             .right {
@@ -313,20 +321,20 @@ p {
             h1 {
               margin: 0px 20px;
               color: #fff;
-              font-size: 5vh;
+              font-size: rpx(40);
             }
           }
           .desc {
-            width: 485px;
+            width: 100%;
             margin: 20px auto;
             text-align: center;
-            font: 400 14px/30px 微软雅黑;
+            font: 400 rpx(25) / rpx(44) 微软雅黑;
             color: #fff;
           }
           .detailPage {
             margin: 0px auto;
-            margin-top: 70px;
-            margin-bottom: 20px;
+            margin-top: 40px;
+            // margin-bottom: 10px;
           }
         }
       }

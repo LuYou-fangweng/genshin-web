@@ -14,6 +14,11 @@ const routes = [
         name: 'romeMove',
         component: () => import('./page/RoleMove.vue')
     },
+    {
+        path: '/World',
+        name: 'worldMove',
+        component: () => import('./page/WorldMove.vue')
+    },
 ]
 
 const router = new VueRouter({
