@@ -1,6 +1,13 @@
 <template>
   <div class="world">
-    <div class="centent" ref="centent">
+    <div
+      class="centent"
+      ref="centent"
+      @touchstart="touchstart"
+      @touchmove="touchmove"
+      @touchend="touchend"
+      id="centent"
+    >
       <!-- 世界界面的首页  -->
       <div class="worldHome box">
         <!-- 文本内容 -->
@@ -23,7 +30,7 @@
           <p>如今，席卷大陆的灾难已经停息，和平却仍未如期光临。</p>
         </div>
         <!-- 动画按钮组件 -->
-        <div class="down" @click="changeIndex(1)">
+        <div class="down" @touchstart.stop="changeIndex(1)">
           <BottomDown></BottomDown>
         </div>
       </div>
@@ -63,8 +70,8 @@
               {{ $store.state.sceneryList[index].desc }}
             </div>
             <!-- 详情页按钮 -->
-            <div @click="showScenery(index)">
-              <BottomPage class="detailPage"></BottomPage>
+            <div @touchstart.stop="showScenery(index)" class="detailPage">
+              <BottomPage></BottomPage>
             </div>
             <p>查看详情</p>
           </div>
@@ -77,28 +84,20 @@
       <!-- 侧边栏盒子 -->
       <ul class="sidebarBox">
         <!-- 首页 -->
-        <li class="citiList" @click="changeIndex(0)">
-          <div class="cityTxet" :class="{ cityTxetActive: ymIndex == 0 }">
-            首页
-          </div>
+        <li class="citiList" @touchstart.stop="changeIndex(0)">
           <div class="rightStyle">
             <div class="maxBox" :class="{ maxBoxActive: ymIndex == 0 }"></div>
             <div class="minBox" :class="{ minBoxActive: ymIndex == 0 }"></div>
           </div>
+          <div class="cityTxet">首页</div>
         </li>
         <!-- 城市列表 -->
         <li
           class="citiList"
           v-for="(item, index) of $store.state.sceneryList"
           :key="item._id"
-          @click="changeIndex(index + 1)"
+          @touchstart.stop="changeIndex(index + 1)"
         >
-          <div
-            class="cityTxet"
-            :class="{ cityTxetActive: index + 1 == ymIndex }"
-          >
-            {{ item.title }}
-          </div>
           <div class="rightStyle">
             <div
               class="maxBox"
@@ -109,14 +108,17 @@
               :class="{ minBoxActive: index + 1 == ymIndex }"
             ></div>
           </div>
+          <div class="cityTxet">
+            {{ item.title }}
+          </div>
         </li>
         <!-- 敬请期待 -->
         <li class="citiList">
-          <div class="cityTxet">敬请期待</div>
           <div class="rightStyle">
             <div class="maxBox"></div>
             <div class="minBox"></div>
           </div>
+          <div class="cityTxet">敬请期待</div>
         </li>
         <div class="line"></div>
       </ul>
@@ -140,6 +142,16 @@ export default {
       maxYs: 4, //最大页数
       time: 500, //页面跳转冷却时间
       state: true, //是否可执行运动状态
+      modeTime:300,//快速活动与缓慢滑动的分界时间
+
+      startX: 0,
+      startY: 0,
+      moveX: 0,
+      moveY: 0,
+      starTime: 0,
+      endTime: 0,
+      lateY: 0,
+      moveEndY: 0,
     };
   },
   computed: {},
@@ -153,36 +165,86 @@ export default {
 
     //改变到特定页面
     changeIndex: function (index) {
+      this.ymIndex = index;
       const centent = this.$refs.centent;
       let height = index * 100;
       centent.style.transform = `translate(0, -${height}vh)`;
-
+      // return false;
       // document.documentElement.scrollTop = height;
       // console.log("坐标点"+height);
     },
-    //画面滚动执行
-    handleScroll: function () {
-      // console.log("坐标" + document.documentElement.scrollTop);
-      // console.log("高度" + window.innerHeight);
-      let value;
-      value = document.documentElement.scrollTop / window.innerHeight;
-      this.ymIndex = Math.ceil(value - 0.5);
-      // console.log(this.ymIndex);
+    // 触摸接触事件
+    touchstart(e) {
+      // 如果你要阻止点击事件，请反注释下一行代码
+      // e.preventDefault()
+
+      // 阻止页面滚动
+      e.preventDefault();
+      this.startX = e.touches[0].clientX;
+      this.startY = e.touches[0].clientY;
+      this.starTime = new Date();
+      // console.log("接触时间", this.starTime);
+
+      // 获取对象偏移量
+      let late = document.defaultView.getComputedStyle(
+        document.getElementsByClassName("centent")[0],
+        null
+      ).transform;
+
+      let lateData = late.replace(")", "").split(",");
+      this.lateY = Number(lateData[lateData.length - 1]);
+      // console.log("初始偏移量", this.lateY);
+
+      this.$refs.centent.style.transitionDuration = "0ms";
     },
-    //释放鼠标时改变高度
-    changeHeight: function () {
-      let height = this.ymIndex * window.innerHeight;
-      document.documentElement.scrollTop = height;
-      // console.log("坐标点"+height);
+    // 触摸移动事件
+    touchmove(e) {
+      // e.preventDefault()
+      this.moveX = e.touches[0].clientX;
+      this.moveY = e.touches[0].clientY;
+      // 获得鼠标偏移量
+      let dY = this.moveY - this.startY;
+      this.moveEndY = this.lateY + dY;
+      this.$refs.centent.style.transform = `translateY(${this.moveEndY}px)`;
+      // console.log("移动中！结果偏移量为：", this.moveEndY);
     },
-    //滚轮滑动时，触发页面自动跳转
-    ymAuto: function (e) {
+    touchend() {
+      this.endTime = new Date();
+      let time = this.endTime - this.starTime;
+      // console.log("离开时间", this.endTime);
+      this.$refs.centent.style.transitionDuration = "600ms";
+      // console.log("过程时间：", time);
+      if (time <= this.modeTime) {
+        this.ymAuto();
+      } else {
+        this.autoHeight();
+      }
+    },
+
+    //缓慢拖动结束后，根据屏幕顶部位于文档的位置确定位置
+    autoHeight: function () {
+      let value = -this.moveEndY / window.innerHeight;
+      // console.log("偏移量", this.lateY);
+      // console.log("屏幕高", window.innerHeight);
+
+      let a = Math.ceil(value - 0.5);
+      if (a < 0) {
+        a = 0;
+      }
+      if (a > this.maxYs - 1) {
+        a = this.maxYs - 1;
+      }
+      // console.log("确定页数", a);
+      this.changeIndex(a);
+    },
+    //快速滑动时，触发页面自动跳转
+    ymAuto: function () {
       if (this.state === false) {
         return;
       }
       this.state = false;
       let d;
-      if (e.wheelDelta > 0) {
+      if (this.moveY - this.startY > 0) {
         // console.log("向上");
         d = -1;
       } else {
@@ -213,15 +275,14 @@ export default {
       // console.log("禁用鼠标滚轮");
       return false;
     };
+
     //滚动事件监控
-    window.addEventListener("scroll", this.handleScroll, true);
+    // window.addEventListener("scroll", this.handleScroll, true);
     //释放鼠标时自动调节按钮
-    window.addEventListener("mouseup", this.changeHeight, true);
   },
   beforeDestroy: function () {
     // console.log("移除自动调节窗口");
-    window.removeEventListener("mouseup", this.changeHeight, true);
-    window.removeEventListener("scroll", this.handleScroll, true);
+    // window.removeEventListener("scroll", this.handleScroll, true);
   },
 };
 </script>
@@ -242,7 +303,7 @@ p {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   .centent {
     transform: translate(0, 0);
     transition: all 0.6s ease;
@@ -332,6 +393,7 @@ p {
             color: #fff;
           }
           .detailPage {
+            width: 52px;
             margin: 0px auto;
             margin-top: 40px;
             // margin-bottom: 10px;
@@ -342,31 +404,23 @@ p {
   }
   .rightSidebar {
     position: fixed;
-    top: 50%;
-    right: 36px;
-    transform: translate(0, -50%);
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
     transition: all 0.6s ease-out;
     .sidebarBox {
       list-style: none;
+      display: flex;
       .citiList {
-        height: 25px;
-        font: 400 14px/25px 微软雅黑;
-        margin: 12px 0px;
-        text-align: right;
+        font: 400 rpx(26) / rpx(30) 微软雅黑;
+        text-align: center;
         color: #fff;
-        display: flex;
         .cityTxet {
-          height: 100%;
-          width: 100px;
-          width: 80px;
-          padding-right: 20px;
-          height: 100%;
-        }
-        .cityTxetActive {
-          background: #fff;
-          color: black;
+          height: rpx(32);
+          width: rpx(125);
         }
         .rightStyle {
+          margin: 0 auto;
           width: 25px;
           height: 25px;
           position: relative;
@@ -410,17 +464,15 @@ p {
       }
       .line {
         position: absolute;
-        height: 130%;
-        width: 2px;
+        height: 1px;
+        width: 100%;
         background: rgba(255, 255, 255, 0.2);
-        top: 50%;
-        right: 11px;
-        transform: translate(0px, -50%);
+        top: 13px;
       }
     }
   }
   .rightSidebarActive {
-    right: -200px;
+    bottom: -50px;
   }
 }
 </style>
