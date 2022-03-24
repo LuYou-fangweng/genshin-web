@@ -169,7 +169,7 @@ export default {
       const centent = this.$refs.centent;
       let height = index * 100;
       centent.style.transform = `translate(0, -${height}vh)`;
-      // return false;
+      return false;
       // document.documentElement.scrollTop = height;
       // console.log("坐标点"+height);
     },
@@ -210,13 +210,13 @@ export default {
     },
     touchend() {
       this.endTime = new Date();
+        this.$refs.centent.style.transitionDuration = "600ms";
       let time = this.endTime - this.starTime;
-      // console.log("离开时间", this.endTime);
-      this.$refs.centent.style.transitionDuration = "600ms";
-      // console.log("过程时间：", time);
-      if (time <= this.modeTime) {
+      if (time <= this.modeTime&&time>=100) {
+        console.log("快速换页")
         this.ymAuto();
       } else {
+        console.log("自动回复")
         this.autoHeight();
       }
     },
@@ -226,6 +226,7 @@ export default {
       let value = -this.moveEndY / window.innerHeight;
       // console.log("偏移量", this.lateY);
       // console.log("屏幕高", window.innerHeight);
+
 
       let a = Math.ceil(value - 0.5);
       if (a < 0) {
@@ -243,6 +244,10 @@ export default {
         return;
       }
       this.state = false;
+      //  if (Math.abs(this.moveY - this.startY )<20) {
+      //    console.log('滑动距离小，不触发换页');
+      //    return;
+      //  }
       let d;
       if (this.moveY - this.startY > 0) {
         // console.log("向上");

@@ -19,6 +19,11 @@ const routes = [
         name: 'worldMove',
         component: () => import('./page/WorldMove.vue')
     },
+    {
+        path: '/Cartoon',
+        name: 'cartoonMove',
+        component: () => import('./page/CartoonMove.vue')
+    },
 ]
 
 const router = new VueRouter({
