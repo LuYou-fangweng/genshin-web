@@ -91,7 +91,7 @@ export default new Vuex.Store({
     manhuaPage:0,//漫画页数
     manhuaShow:false,//漫画阅读器显示状态
     index_page:[0,0],//上次浏览集数与页数
-
+    manhuaIndexMove:0,//手机端漫画集数记录
     musicPlay:false,//背景音乐播放状态
     musicLow:"",
   },
@@ -114,6 +114,10 @@ export default new Vuex.Store({
     //写入浏览记录
     changeIndex_page(state,index){
       state.index_page=index;
+    },
+    //写入手机端浏览记录
+    changeManhuaIndexMove(state,index){
+      state.manhuaIndexMove=index;
     },
     // 确定漫画阅读器是否显示
     changeManhuaShow(state,index){

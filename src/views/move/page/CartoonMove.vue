@@ -28,13 +28,14 @@
         </div>
       </div>
     </div>
-    <!-- <div class="cartoonBox" v-if="$store.state.manhuaShow">
-      <Manhua></Manhua>
-    </div> -->
+    <div class="cartoonBox" v-if="$store.state.manhuaShow">
+     <ManhuaMove></ManhuaMove> 
+    </div>
   </div>
 </template>
 <script>
-// import Manhua from "../components/Manhua.vue";
+import ManhuaMove from "@/views/move/move_components/ManhuaMove.vue";
+
 export default {
   name: "Cartoon",
   data: () => {
@@ -59,29 +60,29 @@ export default {
     },
     //继续阅读
     getList: function () {
-      this.$store.commit("changeManhuaIndex", this.$store.state.index_page[0]);
-      this.$store.commit("changeManhuaPage", this.$store.state.index_page[1]);
+      this.$store.commit("changeManhuaIndex", this.$store.state.manhuaIndexMove);
+      // this.$store.commit("changeManhuaPage", this.$store.state.index_page[1]);
       this.$store.commit("changeManhuaShow", true);
     },
     //重新开始
     newList: function () {
       this.$store.commit("changeManhuaIndex", 0);
-      this.$store.commit("changeManhuaPage", 0);
+      // this.$store.commit("changeManhuaPage", 0);
       this.$store.commit("changeManhuaShow", true);
     },
   },
   beforeMount: function () {
-    if (window.localStorage.getItem("index_page")) {
+    if (window.localStorage.getItem("index_move")) {
       this.$store.commit(
-        "changeIndex_page",
-        JSON.parse(window.localStorage.getItem("index_page"))
+        "changeManhuaIndexMove",
+        JSON.parse(window.localStorage.getItem("index_move"))
       );
     }
     console.log("记录为：");
-    console.log(this.$store.state.index_page);
+    console.log(this.$store.state.manhuaIndexMove);
   },
   components: {
-    // Manhua,
+   ManhuaMove,
   },
 };
 </script>
@@ -190,7 +191,7 @@ export default {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 4;
+    z-index: 9;
   }
 }
 </style>

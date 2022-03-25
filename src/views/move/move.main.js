@@ -5,7 +5,8 @@ import store from '../../store'
 import axios from 'axios'
 Vue.prototype.$axios=axios
 Vue.config.productionTip = false
-
+import LazyLoadDirective from '@/order/LazyLoadDirective.js';
+Vue.directive('lazyload', LazyLoadDirective);
 new Vue({
   store,
   router,
