@@ -26,7 +26,12 @@
             v-for="(item, index) of nowManhua"
             :key="index"
           >
-            <img :src="item" alt="漫画" />
+            <img
+              :data-src="item"
+              alt="漫画"
+              class="manhuaImage"
+              id="manhuaImage"
+            />
           </li>
         </ul>
       </div>
@@ -110,8 +115,27 @@ export default {
     this.record();
     //  移动至特定页数
     this.move();
+    this.lzay();
   },
   methods: {
+    // 图片懒加载函数
+    lzay() {
+      const imgs = document.querySelectorAll("#manhuaImage");
+      // console.log(imgs);
+      const observer = new IntersectionObserver((change) => {
+        // changes: 目标元素集合
+        // intersectionRatio
+        if (change[0].isIntersecting) {
+          console.log("触发显示！");
+          const img = change[0].target;
+          img.src = img.dataset.src;
+          observer.unobserve(img);
+        }
+      });
+      imgs.forEach((item) => {
+        observer.observe(item);
+      });
+    },
     //页数增加1
     addPage: function () {
       if (this.manhuaPage >= this.nowManhua.length - 1) {
@@ -268,7 +292,7 @@ export default {
   box-sizing: border-box;
   background-color: #fff;
 }
-.manhuaContent img {
+.manhuaContent .manhuaImage {
   height: 100%;
 }
 .indexList {
