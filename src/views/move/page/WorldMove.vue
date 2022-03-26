@@ -227,15 +227,15 @@ export default {
       let dY = Math.abs(this.moveY - this.startY);
       this.$refs.centent.style.transitionDuration = "600ms";
       let time = this.endTime - this.starTime;
-      console.log("时间：", time);
-      console.log("开始时Y值", this.startY);
-      console.log("结束时Y值", this.moveY);
-      console.log("位移：", dY);
+      // console.log("时间：", time);
+      // console.log("开始时Y值", this.startY);
+      // console.log("结束时Y值", this.moveY);
+      // console.log("位移：", dY);
       if (time <= this.modeTime && time >= 100 && dY >= this.minDy) {
-        console.log("快速换页");
+        // console.log("快速换页");
         this.ymAuto();
       } else {
-        console.log("自动回复");
+        // console.log("自动回复");
         this.autoHeight();
       }
       this.active = false;

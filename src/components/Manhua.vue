@@ -27,10 +27,14 @@
             :key="index"
           >
             <img
+              src="../assets/漫画/填充模板画板 1.jpg"
+              alt=""
+              class="model"
+            />
+            <img
               :data-src="item"
               alt="漫画"
               class="manhuaImage"
-              id="manhuaImage"
             />
           </li>
         </ul>
@@ -39,7 +43,7 @@
       <div
         class="button right"
         @click="addPage"
-        :class="{ buttonNo: manhuaPage >= nowManhua.length }"
+        :class="{ buttonNo: manhuaPage >= nowManhua.length-1 }"
       ></div>
       <!-- 导航栏 -->
       <div class="navBox">
@@ -120,13 +124,13 @@ export default {
   methods: {
     // 图片懒加载函数
     lzay() {
-      const imgs = document.querySelectorAll("#manhuaImage");
+      const imgs = document.querySelectorAll(".manhuaImage");
       // console.log(imgs);
       const observer = new IntersectionObserver((change) => {
         // changes: 目标元素集合
         // intersectionRatio
         if (change[0].isIntersecting) {
-          console.log("触发显示！");
+          // console.log("触发显示！");
           const img = change[0].target;
           img.src = img.dataset.src;
           observer.unobserve(img);
@@ -155,6 +159,7 @@ export default {
       let index = Number(event.target.value);
       this.$store.commit("changeManhuaIndex", index);
       this.$store.commit("changeManhuaPage", 0);
+      this.lzay();
     },
     //更换页数
     changeManhuaPage: function (event) {
@@ -291,9 +296,17 @@ export default {
   height: 100%;
   box-sizing: border-box;
   background-color: #fff;
+  position: relative;
 }
 .manhuaContent .manhuaImage {
   height: 100%;
+  position: relative;
+  left: 0;
+  top:-100%;
+}
+.manhuaContent .model {
+  height: 100%;
+  /* display: none; */
 }
 .indexList {
   height: 40px;

@@ -67,6 +67,7 @@ export default {
     // 显示漫画特定集数
     manhuaShow: function (value) {
       this.$store.commit("changeManhuaIndex", value);
+      this.$store.commit("changeManhuaPage", 0);
       this.$store.commit("changeManhuaShow", true);
     },
     //继续阅读
