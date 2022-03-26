@@ -141,17 +141,20 @@ export default {
       ymIndex: 0, //页面索引
       maxYs: 4, //最大页数
       time: 500, //页面跳转冷却时间
-      state: true, //是否可执行运动状态
-      modeTime:300,//快速活动与缓慢滑动的分界时间
+      state: true, //判断页面跳转是否冷却
+      modeTime: 300, //快速换页与缓慢滑动的分界时间
+      active: false, //判断页面是否激活跳转状态
+      minDy: 10, //页面快速换页需要的最小位移值
+      slide:false,//判断是否有滑动操作
 
-      startX: 0,
-      startY: 0,
-      moveX: 0,
-      moveY: 0,
-      starTime: 0,
-      endTime: 0,
-      lateY: 0,
-      moveEndY: 0,
+      startX: 0, //触摸X坐标
+      startY: 0, //触摸Y坐标
+      moveX: 0, //移动X坐标
+      moveY: 0, //移动Y坐标
+      starTime: 0, //触摸开始时间
+      endTime: 0, //触摸结束时间
+      lateY: 0, //当前页面偏移量
+      moveEndY: 0, //移动事件结束后页面偏移量
     };
   },
   computed: {},
@@ -177,7 +180,7 @@ export default {
     touchstart(e) {
       // 如果你要阻止点击事件，请反注释下一行代码
       // e.preventDefault()
-
+      this.active = true;
       // 阻止页面滚动
       e.preventDefault();
       this.startX = e.touches[0].clientX;
@@ -199,6 +202,9 @@ export default {
     },
     // 触摸移动事件
     touchmove(e) {
+      if (!this.active) {
+        return;
+      }
       // e.preventDefault()
       this.moveX = e.touches[0].clientX;
       this.moveY = e.touches[0].clientY;
@@ -206,19 +212,34 @@ export default {
       let dY = this.moveY - this.startY;
       this.moveEndY = this.lateY + dY;
       this.$refs.centent.style.transform = `translateY(${this.moveEndY}px)`;
+      this.slide=true;
       // console.log("移动中！结果偏移量为：", this.moveEndY);
     },
     touchend() {
-      this.endTime = new Date();
+      if (!this.active) {
+        return;
+      }
+      if(!this.slide){
         this.$refs.centent.style.transitionDuration = "600ms";
+        return;
+      }
+      this.endTime = new Date();
+      let dY = Math.abs(this.moveY - this.startY);
+      this.$refs.centent.style.transitionDuration = "600ms";
       let time = this.endTime - this.starTime;
-      if (time <= this.modeTime&&time>=100) {
-        console.log("快速换页")
+      console.log("时间：", time);
+      console.log("开始时Y值", this.startY);
+      console.log("结束时Y值", this.moveY);
+      console.log("位移：", dY);
+      if (time <= this.modeTime && time >= 100 && dY >= this.minDy) {
+        console.log("快速换页");
         this.ymAuto();
       } else {
-        console.log("自动回复")
+        console.log("自动回复");
         this.autoHeight();
       }
+      this.active = false;
+      this.slide=false;
     },
 
     //缓慢拖动结束后，根据屏幕顶部位于文档的位置确定位置
@@ -226,7 +247,6 @@ export default {
       let value = -this.moveEndY / window.innerHeight;
       // console.log("偏移量", this.lateY);
       // console.log("屏幕高", window.innerHeight);
-
 
       let a = Math.ceil(value - 0.5);
       if (a < 0) {

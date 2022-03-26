@@ -162,15 +162,14 @@ export default {
     background-color: rgba(0, 0, 0, 0.7);
   }
   .content {
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height:100vh;
-    position: absolute;
     top: 0;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%,0);
     color: #fff;
   }
   .title {
