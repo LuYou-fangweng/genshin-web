@@ -15,12 +15,14 @@ module.exports = {
             entry: "src/views/move/move.main.js",
             filename: "move.html",
             title: "move",
+            chunks: ['chunk-vendors', 'chunk-common', 'move'],
         },
         index: {
             template: "public/index.html",
             entry: "src/main.js",
             filename: "index.html",
             title: "index",
+            chunks: ['chunk-vendors', 'chunk-common', 'index'],
         },
     },
     css: {
