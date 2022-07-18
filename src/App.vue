@@ -161,6 +161,7 @@ html,
 body {
   scroll-behavior: smooth;
   width: 100vw;
+  min-height: 100vh;
   overflow-x:hidden;
 }
 /* footer { max-width: 100%; }
@@ -170,6 +171,7 @@ body {
   min-width: 1300px;
   width: 100%;
   position: relative;
+  height: auto;
 }
 .nav {
   position: fixed;
