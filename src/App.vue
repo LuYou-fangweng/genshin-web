@@ -160,9 +160,15 @@ export default {
 html,
 body {
   scroll-behavior: smooth;
+  width: 100vw;
+  overflow-x:hidden;
 }
+/* footer { max-width: 100%; }
+.basicBox { max-width: 100vw; overflow: hidden;}
+.world .centent .box { max-width: 100%; } */
 #app {
   min-width: 1300px;
+  width: 100%;
   position: relative;
 }
 .nav {
