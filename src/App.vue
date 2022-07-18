@@ -85,7 +85,7 @@ export default {
     //  网络请求函数，请求角色数据
     roleData: function () {
       let them = this;
-      this.$axios("http://127.0.0.1:3000/role")
+      this.$axios("https://genshin_server.qijia8.top/role")
         .then(function (res) {
           them.$store.commit("changeRoleList", res.data);
           console.log(them.$store.state.roleList);
@@ -98,7 +98,7 @@ export default {
     //  网络请求函数，请求主城数据
     cityData: function () {
       let them = this;
-      this.$axios("http://127.0.0.1:3000/city")
+      this.$axios("https://genshin_server.qijia8.top/city")
         .then(function (res) {
           them.$store.commit("changeCityList", res.data);
           console.log(them.$store.state.cityList);
@@ -111,7 +111,7 @@ export default {
     //  网络请求函数，请求各国家风景/名胜数据
     sceneryData: function () {
       let them = this;
-      this.$axios("http://127.0.0.1:3000/scenery")
+      this.$axios("https://genshin_server.qijia8.top/scenery")
         .then(function (res) {
           them.$store.commit("chuangeScenery", res.data);
           console.log(them.$store.state.sceneryList);
@@ -124,7 +124,7 @@ export default {
     //  网络请求函数，请求漫画数据
     manhauData: function () {
       let them = this;
-      this.$axios("http://127.0.0.1:3000/manhua")
+      this.$axios("https://genshin_server.qijia8.top/manhua")
         .then(function (res) {
           them.$store.commit("changeManhuaList", res.data);
           console.log(them.$store.state.manhuaList);
