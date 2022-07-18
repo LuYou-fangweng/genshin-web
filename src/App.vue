@@ -22,10 +22,10 @@
       <router-link to="/Role">角色</router-link>
       <router-link to="/World">世界</router-link>
       <router-link to="/Cartoon">漫画</router-link>
-      <div class="user">
-        <span>登录</span>
+      <a href="https://github.com/LuYou-fangweng?tab=repositories" class="user">
+        <span>github</span>
         <div class="userImg"></div>
-      </div>
+      </a>
     </div>
     <!-- 视图级组件 -->
     <router-view />
