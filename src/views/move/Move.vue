@@ -29,16 +29,16 @@
         <!-- 导航关闭按钮 -->
         <div class="navClose" @click="changeNavShow"></div>
       </div>
-      <div class="router">
+      <div class="router" @click="navShow=false">
         <router-link to="/">首页</router-link>
       </div>
-      <div class="router">
+      <div class="router" @click="navShow=false">
         <router-link to="/Role">角色</router-link>
       </div>
-      <div class="router">
+      <div class="router" @click="navShow=false">
         <router-link to="/World">世界</router-link>
       </div>
-      <div class="router">
+      <div class="router" @click="navShow=false">
         <router-link to="/Cartoon">漫画</router-link>
       </div>
 
